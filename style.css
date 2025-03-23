@@ -194,6 +194,8 @@ a:hover {
     width: 250px;
     background-color: #F7F7F5;
     border-radius: 12px;
+    padding-right:10px;
+    padding-left:10px;
     
 }
 
