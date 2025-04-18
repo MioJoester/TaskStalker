@@ -636,5 +636,26 @@ a:hover {
     position: fixed;
     cursor:pointer;
 }
+
+
+
+    #ss {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;  
+    flex-direction:column;
+    height: 650px;
+    }
+
+
+
+
+
+
+
+
+
+    
+    
 }
 
