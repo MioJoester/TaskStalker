@@ -388,7 +388,7 @@ a:hover {
 
 .git {
     font-size:50px;
-    color: #000;
+    color: #121212;
     transition: all 0.3s ease;
     cursor: pointer;
 }
@@ -396,6 +396,7 @@ a:hover {
 
 .git:hover {
     font-size: 60px;
+    color: #2b3137;
 }
 
 .discord {
@@ -405,15 +406,103 @@ a:hover {
     cursor: pointer;
 }
 
+.mail{
+    font-size:50px;
+    color: #000;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+.mail:hover {
+    color: red;
+    font-size: 60px;
+}
+
 .discord:hover {
     font-size: 60px;
     color: #5865f2;
 }
 
+#ss {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;  
+    flex-direction:row;
+    height: 500px;
+    width: 80%;
+    background-color: #E3E0D1;
+    border-radius: 12px;
+    margin-top: 50px;
+    border-radius: 12px;
+    user-select: none;
+}
+
+#icon-config-1{
+    font-size: 80px;
+    transition: all 0.3s ease-in-out;
+    cursor: pointer;
+
+}
+
+#icon-config-1:hover{
+    font-size: 90px;
+    color: #ec6231;
+}
+
+#icon-config-2{
+    font-size: 80px;
+    transition: all 0.3s ease-in-out;
+    cursor: pointer;
+
+}
+
+#icon-config-2:hover{
+    font-size: 90px;
+    color: #264de4;
+}
+
+
+#icon-config-3{
+    font-size: 80px;
+    transition: all 0.3s ease-in-out;
+    cursor: pointer;
+
+}
+
+#icon-config-3:hover{
+    font-size: 90px;
+    color: #F0DB4F;
+}
+
+
+#icon-config-4{
+    font-size: 80px;
+    transition: all 0.3s ease-in-out;
+    cursor: pointer;
+
+}
+
+#icon-config-4:hover{
+    font-size: 90px;
+    color: #61DBFB;
+}
+
+
+
 .contact-spacings {
     width: 150px;
 }
 
+.hor-corosal {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    height: 50%;
+    width: 190px;
+    font-family: 'poppins', sans-serif;
+    font-weight: bold;
+    
+}
 
 
 
