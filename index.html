@@ -1,255 +1,232 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Task-Stalker</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="icon" href="https://i.pinimg.com/736x/76/8a/74/768a747b12a9bf88226017eb9e0b6625.jpg">
-    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Task-Stalker</title>
 
+  <!-- Tailwind + DaisyUI CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.10/dist/full.min.css" rel="stylesheet" />
+
+  <!-- Font Awesome 6 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+  <!-- Favicon -->
+  <link rel="icon" href="https://i.pinimg.com/736x/76/8a/74/768a747b12a9bf88226017eb9e0b6625.jpg" />
+
+  <!-- particles.js -->
+  <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+
+  <style>
+    html { scroll-behavior: smooth; }
+  </style>
 </head>
-<body>
-    <div class="nav">
-        <a href="#" id="icon"></a>
-            <div class="events"></div>
-        <a href="#heading">About-me</a>
-        <div class="events"></div>
-        <a href="#mp">My project</a>
-       <div class="events"></div>
-        <a href="#ss">Skill-Set</a>
-        <div class="events"></div>
-        <a href="#up">Upcoming projects</a>
-        <div class="events"></div>
-        <a href="#ctn">Contact</a>
+
+<body class="bg-base-200 text-base-content">
+
+  <!-- ---------- NAV (sticky) ---------- -->
+  <nav class="navbar bg-neutral text-neutral-content shadow-lg sticky top-0 z-40">
+    <div class="navbar-start">
+      <a href="#" class="btn btn-ghost normal-case text-xl">Task-Stalker</a>
     </div>
 
-<div class="shitty-margin-top"></div>
+    <div class="navbar-center hidden lg:flex">
+      <ul class="menu menu-horizontal px-1">
+        <li><a href="#abt">About me</a></li>
+        <li><a href="#mp">My Projects</a></li>
+        <li><a href="#ss">Skill-Set</a></li>
+        <li><a href="#up">Upcoming</a></li>
+        <li><a href="#ctn">Contact</a></li>
+      </ul>
+    </div>
 
-<center>
-    
-        <div class="hero">
-            <div id="particles-js"></div>
+    <div class="navbar-end lg:hidden">
+      <div class="dropdown">
+        <label tabindex="0" class="btn btn-ghost btn-circle">
+          <i class="fas fa-bars"></i>
+        </label>
+        <ul tabindex="0" class="menu menu-compact dropdown-content mt-3 p-2 shadow bg-neutral rounded-box w-52">
+          <li><a href="#abt">About me</a></li>
+          <li><a href="#mp">My Projects</a></li>
+          <li><a href="#ss">Skill-Set</a></li>
+          <li><a href="#up">Upcoming</a></li>
+          <li><a href="#ctn">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
 
-            <div class="pfp" title="Hi!"></div>
-            <div class="greet">Hi, I am TaskStalker!</div>
-            <div class="cta">
-                <a href="#mp" id="cta-a">View my work</a>
-                <div class="cta-spacers"></div>
-                <a href="#ctn" id="cta-a">Contact me</a>
-            </div>
+  <!-- ---------- HERO / PARTICLES ---------- -->
+  <section id="hero" class="relative h-[calc(100vh-4rem)] flex flex-col justify-center items-center">
+    <div id="particles-js" class="absolute inset-0"></div>
+    <div class="relative z-10 text-center">
+      <img
+        class="mask mask-circle w-32 h-32 mx-auto mb-4 shadow-xl"
+        src="https://i.pinimg.com/736x/76/8a/74/768a747b12a9bf88226017eb9e0b6625.jpg"
+        alt="Avatar"
+      />
+      <h1 class="text-4xl md:text-5xl font-bold mb-2">Hi, I am TaskStalker!</h1>
+      <div class="flex gap-4 justify-center mt-6">
+        <a href="#mp" class="btn btn-primary">View my work</a>
+        <a href="#ctn" class="btn btn-secondary">Contact me</a>
+      </div>
+    </div>
+  </section>
 
-        </div>  
+  <!-- ---------- ABOUT ---------- -->
+  <section id="abt" class="py-20 px-6 max-w-4xl mx-auto">
+    <h2 class="text-3xl font-bold mb-6 text-center">About me</h2>
+    <div class="space-y-4 text-lg leading-relaxed">
+      <p>
+        Hi! I'm Taskstalker, an active web developer and designer passionate about creating innovative and high-performance web applications.
+        I have worked on multiple projects, including solo endeavors, focusing on user-friendly interfaces, creative designs, and optimized performance.
+      </p>
+      <p>
+        I am always expanding my knowledge of web technologies, front-end frameworks, JavaScript, and backend databases.
+        Beyond coding, I enjoy experimenting with animations and bringing creative ideas to life.
+      </p>
+      <p>
+        My goal is to refine my skills and deliver high-quality web solutions that blend functionality with design.
+        I strive to create groundbreaking projects by combining my technical expertise with creativity.
+      </p>
+    </div>
+  </section>
 
-
-
-        <div id="abt">
-            <div id="heading">About me</div>
-
-           <p id="paras"> Hi! I'm Taskstalker, an active web developer and designer passionate about creating innovative and high-performance web applications. I have worked on multiple projects, including solo endeavors, focusing on user-friendly interfaces, creative designs, and optimized performance. My passion for technology and continuous learning pushes me further in this field every day</p>
-           <p id="paras">I am always expanding my knowledge of web technologies, front-end frameworks, JavaScript, and backend databases. Beyond coding, I enjoy experimenting with animations and bringing creative ideas to life.</p>
-           <p id="paras">  My goal is to refine my skills and deliver high-quality web solutions that blend functionality with design. I strive to create groundbreaking projects by combining my technical expertise with creativity, leveraging the limitless possibilities of technology.   </p>
+  <!-- ---------- MY PROJECTS ---------- -->
+  <section id="mp" class="py-20 bg-base-300">
+    <h2 class="text-3xl font-bold mb-10 text-center">My Projects</h2>
+    <div class="max-w-6xl mx-auto grid gap-8 md:grid-cols-3 px-6">
+      <!-- Card 1 -->
+      <div class="card bg-base-100 shadow-xl">
+        <figure class="px-10 pt-10">
+          <i class="fa-solid fa-rocket text-7xl text-primary"></i>
+        </figure>
+        <div class="card-body items-center text-center">
+          <h3 class="card-title">Astral-AI</h3>
+          <p>A fast, accurate and developer-friendly chatbot for learning and coding.</p>
+          <div class="card-actions mt-4">
+            <a href="https://miojoester.github.io/Astral/" target="_blank" class="btn btn-primary">Visit project</a>
+          </div>
         </div>
+      </div>
 
-
-
-
-
-<div class="responsive-special"></div>
-
-
-      
-
-        <div id="mp">
-            
-
-           
-
-           <div class="one">
-            <div class="zyan">Astral-AI</div>
-            <div class="des">Astral-AI ia a fast, accurate and developer friendly chatbot for learning and coding</div>
-            <a href="https://miojoester.github.io/Astral/" id="des-yes" target="_blank">Visit project</a>
-           </div>
-
-
-<div class="gotta-leave-some-space"></div>
-
-           <div class="one">
-            <div class="zyan">HorizonWX</div>
-            <div class="des">A simple API based web app which provides current weather conditions of major cities</div>
-            <a href="https://miojoester.github.io/WXHorizon/" id="des-yes" target="_blank">Visit project</a>
-           </div>
-
-
-<div class="gotta-leave-some-space"></div>
-
-            <div class="one">
-            <div class="zyan">BitCoin tracker</div>
-            <div class="des"> web app which tracks and provides live Bitcoin price with help of Binance API.</div>
-            <a href="https://miojoester.github.io/CCPT/" id="des-yes" target="_blank">Visit project</a>
-           </div>
-            
+      <!-- Card 2 -->
+      <div class="card bg-base-100 shadow-xl">
+        <figure class="px-10 pt-10">
+          <i class="fa-solid fa-cloud-sun text-7xl text-secondary"></i>
+        </figure>
+        <div class="card-body items-center text-center">
+          <h3 class="card-title">HorizonWX</h3>
+          <p>A simple API-based web app which provides current weather conditions of major cities.</p>
+          <div class="card-actions mt-4">
+            <a href="https://miojoester.github.io/WXHorizon/" target="_blank" class="btn btn-secondary">Visit project</a>
+          </div>
         </div>
+      </div>
 
-
-
-
-
-        <div id="ss">
-          
-
-
-            <div class="hor-corosal">   <div id="icon-config-1"> <i class="fab fa-html5"></i></div> HTML</div>
-            <div class="hor-corosal">   <div id="icon-config-2"> <i class="fab fa-css3"></i></div> CSS</div>
-            <div class="hor-corosal">   <div id="icon-config-3"> <i class="fab fa-js"></i></div> JavaScript</div>
-            <div class="hor-corosal">   <div id="icon-config-4"> <i class="fab fa-react"></i></div> React-Native</div>
-
-
-
-
-
-
+      <!-- Card 3 -->
+      <div class="card bg-base-100 shadow-xl">
+        <figure class="px-10 pt-10">
+          <i class="fa-brands fa-bitcoin text-7xl text-accent"></i>
+        </figure>
+        <div class="card-body items-center text-center">
+          <h3 class="card-title">BitCoin Tracker</h3>
+          <p>Live Bitcoin price updates using Binance API.</p>
+          <div class="card-actions mt-4">
+            <a href="https://miojoester.github.io/CCPT/" target="_blank" class="btn btn-accent">Visit project</a>
+          </div>
         </div>
+      </div>
+    </div>
+  </section>
 
+  <!-- ---------- SKILL-SET ---------- -->
+  <section id="ss" class="py-20">
+    <h2 class="text-3xl font-bold mb-10 text-center">Skill-Set</h2>
+    <div class="flex flex-wrap justify-center gap-8 text-center">
+      <div class="w-32">
+        <i class="fab fa-html5 text-6xl text-error"></i>
+        <p class="mt-2 font-semibold">HTML</p>
+      </div>
+      <div class="w-32">
+        <i class="fab fa-css3 text-6xl text-info"></i>
+        <p class="mt-2 font-semibold">CSS</p>
+      </div>
+      <div class="w-32">
+        <i class="fab fa-js text-6xl text-warning"></i>
+        <p class="mt-2 font-semibold">JavaScript</p>
+      </div>
+      <div class="w-32">
+        <i class="fab fa-react text-6xl text-cyan-500"></i>
+        <p class="mt-2 font-semibold">React-Native</p>
+      </div>
+    </div>
+  </section>
 
-            <div id="up">
-                <div class="upheads">Upcoming projects</div>
+  <!-- ---------- UPCOMING ---------- -->
+  <section id="up" class="py-20 bg-base-300">
+    <h2 class="text-3xl font-bold mb-10 text-center">Upcoming Projects</h2>
+    <div class="max-w-4xl mx-auto space-y-10 px-6">
+      <div class="card bg-base-100 shadow-xl">
+        <div class="card-body">
+          <h3 class="card-title">StremCore</h3>
+          <p>A compact web platform powered by Spotify Web-API that shows live activity from your Spotify account.</p>
+        </div>
+      </div>
 
-                <div class="else">
+      <div class="card bg-base-100 shadow-xl">
+        <div class="card-body">
+          <h3 class="card-title">Typewriter</h3>
+          <p>A rogue-like typing / scoring game with buffs and power-ups, in collaboration with
+            <a href="https://github.com/T0MO4ACH1" target="_blank" class="link link-accent">T0MO4ACH1</a>.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
 
-                     <div class="one">
-            <div class="zyan">      StremCore</div>
-            <div class="des">A compact web based platform powered by spotify Web-API, this project will connetct with your Spotify Account and give you live status of you activity in Spotify</div>
-           
-           </div>
+  <!-- ---------- CONTACT ---------- -->
+  <section id="ctn" class="py-20">
+    <h2 class="text-3xl font-bold mb-10 text-center">Contact</h2>
 
+    <div class="flex justify-center gap-6 text-4xl">
+      <a href="https://github.com/MioJoester" target="_blank"
+         class="btn btn-circle btn-outline btn-primary">
+        <i class="fab fa-github"></i>
+      </a>
+      <a href="https://github.com/MioJoester/Ganeva-reconce" target="_blank"
+         class="btn btn-circle btn-outline btn-secondary">
+        <i class="fab fa-discord"></i>
+      </a>
+      <a href="mailto:your@email.com"
+         class="btn btn-circle btn-outline btn-accent">
+        <i class="fas fa-envelope"></i>
+      </a>
+    </div>
+  </section>
 
-<div class="gotta-leave-some-space"></div>
+  <!-- ---------- BACK-TO-TOP ---------- -->
+  <a href="#hero"
+     class="fixed bottom-6 right-6 btn btn-circle btn-primary z-50">
+     <i class="fas fa-arrow-up"></i>
+  </a>
 
-
-           <div class="one">
-            <div class="zyan">Typewriter</div>
-            <div class="des">A rouge like typing/scoring game with a ton of buffs and power up, in callabration with <a href="https://github.com/T0MO4ACH1" id="collab" target="_blank">T0MO4ACH1</a>.</div>
-           
-           </div>
-                
-            </div>
-      
-
-
-
-
-        
-</center>
-
-
-
-
-
-
-<center>
-
-<div id="ctn">
- 
-    <a href="https://github.com/MioJoester" target="_blank"><div class="git"><i class="fab fa-github"></i></div></a>
-        <div class="contact-spacings"></div>
-     <a href="https://github.com/MioJoester/Ganeva-reconce/blob/main/Ganeva.c" target="_blank"><div class="discord"><i class="fab fa-discord"></i></div></a>
-        <div class="contact-spacings"></div>
-    <a href="https://discord.com/users/1274662028820217911" target="_blank"><div class="mail"><i class="fas fa-envelope"></i></div></a>
-
-      
-
-</div>
-
-
-
-<div class="idk"></div>
-
-</center>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<a id="bctoup" href="#"><i class="fas fa-arrow-up"></i></a>
-    
-</body>
-
-
-
-
-
-
-
-
-
-
-<script>
+  <!-- ---------- PARTICLES ---------- -->
+  <script>
     particlesJS('particles-js', {
-    "particles": {
-        "number": {
-            "value": 150,
-            "density": {
-                "enable": true,
-                "value_area": 1000
-            }
-        },
-        "color": {
-            "value": "#000000"
-        },
-        "shape": {
-            "type": "circle",
-            "stroke": {
-                "width": 0,
-                "color": "#000000"
-            }
-        },
-        "opacity": {
-            "value": 1,
-            "random": true
-        },
-        "size": {
-            "value": 3,
-            "random": true
-        },
-        "line_linked": {
-            "enable": false,
-            "distance": 150,
-            "color": "#000000",
-            "opacity": 0.4,
-            "width": 1
-        },
-        "move": {
-            "enable": true,
-            "speed": 4,
-            "direction": "top",
-            "random": false,
-            "straight": false,
-            "out_mode": "out"
-        }
-    },
-    "interactivity": {
-        "detect_on": "canvas",
-        "events": {
-            "onhover": { "enable": false },
-            "onclick": { "enable": false }
-        }
-    },
-    "retina_detect": true
-});
-
-</script>
+      particles: {
+        number: { value: 150, density: { enable: true, value_area: 1000 } },
+        color: { value: '#000000' },
+        shape: { type: 'circle' },
+        opacity: { value: 1, random: true },
+        size: { value: 3, random: true },
+        line_linked: { enable: false },
+        move: { enable: true, speed: 4, direction: 'top', straight: false, out_mode: 'out' }
+      },
+      interactivity: { detect_on: 'canvas', events: { onhover: { enable: false }, onclick: { enable: false } } },
+      retina_detect: true
+    });
+  </script>
+</body>
 </html>
