@@ -43,13 +43,15 @@
 
     <div class="navbar-end lg:hidden">
      <!-- inside <div class="navbar-end lg:hidden"> -->
-<div class="dropdown dropdown-end">
+          <!-- inside .navbar-end -->
+<div class="dropdown">
   <label tabindex="0" class="btn btn-ghost btn-circle">
     <i class="fas fa-bars"></i>
   </label>
+  <!-- menu centered with absolute + left-1/2 + -translate-x-1/2 -->
   <ul
     tabindex="0"
-    class="menu menu-compact dropdown-content mt-3 p-2 shadow bg-neutral rounded-box w-52 left-0"
+    class="menu menu-compact dropdown-content absolute top-full mt-3 left-1/2 -translate-x-1/2 p-2 shadow bg-neutral rounded-box w-52"
   >
     <li><a href="#abt">About me</a></li>
     <li><a href="#mp">My Projects</a></li>
@@ -268,6 +270,7 @@
   </script>
 </body>
 </html>
+
 
 
 
