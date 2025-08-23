@@ -24,6 +24,30 @@
 
   <style>
     html { scroll-behavior: smooth; }
+
+    body {
+    margin: 0;
+    height: 100vh;
+    background: #0a0a0a; /* dark background to make stardust visible */
+    overflow: hidden;
+  }
+
+  .star {
+    position: fixed;
+    width: 6px;
+    height: 6px;
+    background: white;
+    border-radius: 50%;
+    pointer-events: none;
+    box-shadow: 0 0 8px #fff, 0 0 16px #7f7fff, 0 0 32px #aaaaff;
+    animation: fadeOut 1s forwards;
+  }
+
+  @keyframes fadeOut {
+    0% { transform: scale(1); opacity: 1; }
+    100% { transform: scale(0); opacity: 0; }
+  }
+    
   </style>
 </head>
 
@@ -271,9 +295,33 @@
       interactivity: { detect_on: 'canvas', events: { onhover: { enable: false }, onclick: { enable: false } } },
       retina_detect: true
     });
+
+     document.addEventListener("mousemove", (e) => {
+    const star = document.createElement("div");
+    star.className = "star";
+    document.body.appendChild(star);
+
+    // Random offset so it looks natural
+    const offsetX = (Math.random() - 0.5) * 20;
+    const offsetY = (Math.random() - 0.5) * 20;
+
+    star.style.left = `${e.pageX + offsetX}px`;
+    star.style.top = `${e.pageY + offsetY}px`;
+
+    // Random size variation
+    const size = Math.random() * 4 + 4;
+    star.style.width = `${size}px`;
+    star.style.height = `${size}px`;
+
+    // Remove after animation
+    setTimeout(() => {
+      star.remove();
+    }, 1000);
+  });
   </script>
 </body>
 </html>
+
 
 
 
