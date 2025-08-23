@@ -193,6 +193,199 @@ body {
   </div>
 </section>
 
+  <!-- Skill Evolution Section (Radar + Bar Chart) -->
+<section id="skills-evolution" class="py-20 bg-base-200">
+  <div class="max-w-6xl mx-auto px-6">
+    <div class="flex items-center justify-between mb-6 gap-4 flex-wrap">
+      <h2 class="text-3xl md:text-4xl font-bold">Skill Evolution</h2>
+
+      <!-- Year selector -->
+      <div class="join">
+        <button data-year="2022" class="btn join-item btn-ghost">2022</button>
+        <button data-year="2023" class="btn join-item btn-ghost">2023</button>
+        <button data-year="2024" class="btn join-item btn-ghost">2024</button>
+        <button data-year="2025" class="btn join-item btn-ghost">2025</button>
+        <button data-year="Future" class="btn join-item btn-primary">Future</button>
+      </div>
+    </div>
+
+    <p class="opacity-80 mb-8">Track how your skills grew over time. Pick a year to update both charts in sync.</p>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+      <!-- Radar Chart Card -->
+      <div class="card bg-base-100 shadow-xl">
+        <div class="card-body">
+          <h3 class="card-title">Competency Radar</h3>
+          <canvas id="skillRadar" height="320"></canvas>
+        </div>
+      </div>
+
+      <!-- Bar Chart Card -->
+      <div class="card bg-base-100 shadow-xl">
+        <div class="card-body">
+          <div class="flex items-center justify-between">
+            <h3 class="card-title">Category Breakdown</h3>
+          </div>
+          <canvas id="skillBars" height="320"></canvas>
+        </div>
+      </div>
+    </div>
+
+    <!-- Legend / Categories -->
+    <div class="mt-8 text-sm opacity-80">
+      <p><span class="font-semibold">Categories:</span> Frontend, Backend, APIs, Databases, DevOps, App Dev, 3D/Graphics, AI/ML</p>
+    </div>
+  </div>
+</section>
+
+<!-- Chart.js CDN (place once near the bottom of your <body>) -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+  // Labels shared by both charts
+  const SKILL_LABELS = [
+    'Frontend', 'Backend', 'APIs', 'Databases', 'DevOps', 'App Dev', '3D/Graphics', 'AI/ML'
+  ];
+
+  // Year -> data map (0-100 scale). Tune freely to your self-assessment.
+  const SKILL_DATA = {
+    '2022': [20, 5, 5, 0, 0, 0, 0, 0],
+    '2023': [45, 10, 15, 5, 0, 5, 0, 0],
+    '2024': [70, 20, 50, 25, 10, 20, 15, 10],
+    '2025': [80, 35, 65, 40, 20, 45, 35, 30],
+    'Future': [90, 50, 80, 60, 35, 70, 55, 60]
+  };
+
+  // Light/dark aware grid & tick colors using computed styles
+  function getCanvasColors() {
+    const cs = getComputedStyle(document.documentElement);
+    // DaisyUI/Tailwind token fallbacks
+    const text = cs.getPropertyValue('--bc').trim() || 'rgba(255,255,255,0.8)';
+    const subtle = 'rgba(200, 200, 255, 0.2)';
+    return { text, subtle };
+  }
+
+  // Build gradient for bars (optional subtle flair)
+  function makeGradient(ctx, area) {
+    const g = ctx.createLinearGradient(0, area.bottom, 0, area.top);
+    g.addColorStop(0, 'rgba(99, 102, 241, 0.25)');     // indigo-500 @ 25%
+    g.addColorStop(1, 'rgba(99, 102, 241, 0.6)');      // indigo-500 @ 60%
+    return g;
+  }
+
+  const radarCtx = document.getElementById('skillRadar').getContext('2d');
+  const barCtx   = document.getElementById('skillBars').getContext('2d');
+
+  // Initial year
+  let currentYear = 'Future';
+
+  // Radar chart
+  const radarChart = new Chart(radarCtx, {
+    type: 'radar',
+    data: {
+      labels: SKILL_LABELS,
+      datasets: [{
+        label: `Skills – ${currentYear}`,
+        data: SKILL_DATA[currentYear],
+        borderWidth: 2,
+        borderColor: 'rgba(129, 140, 248, 0.9)', // indigo-400
+        backgroundColor: 'rgba(129, 140, 248, 0.25)',
+        pointRadius: 3,
+        pointHoverRadius: 5
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      animation: { duration: 800, easing: 'easeOutQuart' },
+      plugins: {
+        legend: { labels: { color: getCanvasColors().text } },
+        tooltip: { enabled: true }
+      },
+      scales: {
+        r: {
+          angleLines: { color: getCanvasColors().subtle },
+          grid: { color: getCanvasColors().subtle },
+          pointLabels: { color: getCanvasColors().text },
+          suggestedMin: 0, suggestedMax: 100,
+          ticks: { display: false }
+        }
+      }
+    }
+  });
+
+  // Bar chart
+  let barGradient;
+  const barChart = new Chart(barCtx, {
+    type: 'bar',
+    data: {
+      labels: SKILL_LABELS,
+      datasets: [{
+        label: `Skills – ${currentYear}`,
+        data: SKILL_DATA[currentYear],
+        borderWidth: 1,
+        borderColor: 'rgba(79, 70, 229, 0.9)', // indigo-600
+        backgroundColor: (ctx) => {
+          const { chart } = ctx;
+          const { ctx: c, chartArea } = chart;
+          if (!chartArea) return 'rgba(99, 102, 241, 0.5)';
+          if (!barGradient) barGradient = makeGradient(c, chartArea);
+          return barGradient;
+        }
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      animation: { duration: 800, easing: 'easeOutQuart' },
+      plugins: {
+        legend: { display: false },
+        tooltip: { enabled: true }
+      },
+      scales: {
+        x: {
+          grid: { display: false },
+          ticks: { color: getCanvasColors().text }
+        },
+        y: {
+          beginAtZero: true,
+          suggestedMax: 100,
+          grid: { color: getCanvasColors().subtle },
+          ticks: { color: getCanvasColors().text }
+        }
+      }
+    }
+  });
+
+  // Year switcher (updates both charts + active button style)
+  const yearButtons = document.querySelectorAll('#skills-evolution [data-year]');
+  yearButtons.forEach(btn => btn.addEventListener('click', () => {
+    currentYear = btn.dataset.year;
+
+    // Update dataset values
+    radarChart.data.datasets[0].data = SKILL_DATA[currentYear];
+    radarChart.data.datasets[0].label = `Skills – ${currentYear}`;
+    radarChart.update();
+
+    barChart.data.datasets[0].data = SKILL_DATA[currentYear];
+    barChart.data.datasets[0].label = `Skills – ${currentYear}`;
+    barGradient = null; // rebuild gradient after resize/labels
+    barChart.update();
+
+    // Active button styles
+    yearButtons.forEach(b => b.classList.remove('btn-primary'));
+    btn.classList.add('btn-primary');
+  }));
+
+  // Recompute colors/gradients on theme or resize changes
+  const ro = new ResizeObserver(() => {
+    barGradient = null;
+    barChart.update('none');
+    radarChart.update('none');
+  });
+  ro.observe(document.body);
+</script>
+
 
 
 
@@ -390,6 +583,7 @@ body {
   </script>
 </body>
 </html>
+
 
 
 
