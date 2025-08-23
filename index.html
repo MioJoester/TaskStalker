@@ -29,7 +29,7 @@
 body {
   background-color:#000000;
   color:#ffffff;
-    cursor: none; /* hide default cursor */
+   
 }
  
 
@@ -507,18 +507,30 @@ body {
   });
 
     // cursor.js
+let cursorX = 0, cursorY = 0;
+let mouseX = 0, mouseY = 0;
+
 const cursor = document.createElement("div");
 cursor.classList.add("cursor");
 document.body.appendChild(cursor);
 
 document.addEventListener("mousemove", (e) => {
-  cursor.style.top = `${e.clientY}px`;
-  cursor.style.left = `${e.clientX}px`;
+  mouseX = e.clientX;
+  mouseY = e.clientY;
 });
+
+function animate() {
+  cursorX += (mouseX - cursorX) * 0.1;
+  cursorY += (mouseY - cursorY) * 0.1;
+  cursor.style.transform = `translate(${cursorX}px, ${cursorY}px)`;
+  requestAnimationFrame(animate);
+}
+animate();
 
   </script>
 </body>
 </html>
+
 
 
 
