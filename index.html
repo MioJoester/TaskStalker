@@ -29,6 +29,7 @@
 body {
   background-color:#000000;
   color:#ffffff;
+    cursor: none; /* hide default cursor */
 }
  
 
@@ -47,6 +48,20 @@ body {
     0% { transform: scale(1); opacity: 1; }
     100% { transform: scale(0); opacity: 0; }
   }
+
+    .cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 15px;
+  height: 15px;
+  border: 2px solid #4f46e5; /* Indigo */
+  border-radius: 50%;
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  transition: transform 0.1s ease;
+  z-index: 9999;
+}
     
   </style>
 </head>
@@ -490,9 +505,21 @@ body {
       star.remove();
     }, 1000);
   });
+
+    // cursor.js
+const cursor = document.createElement("div");
+cursor.classList.add("cursor");
+document.body.appendChild(cursor);
+
+document.addEventListener("mousemove", (e) => {
+  cursor.style.top = `${e.clientY}px`;
+  cursor.style.left = `${e.clientX}px`;
+});
+
   </script>
 </body>
 </html>
+
 
 
 
