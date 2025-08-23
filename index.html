@@ -29,6 +29,7 @@
 body {
   background-color:#000000;
   color:#ffffff;
+   cursor: none; /* hides default */
    
 }
  
@@ -48,25 +49,28 @@ body {
     0% { transform: scale(1); opacity: 1; }
     100% { transform: scale(0); opacity: 0; }
   }
+    
+#custom-cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 18px;
+  height: 18px;
+  background: radial-gradient(circle, #4fd1ff 40%, transparent 70%);
+  border-radius: 50%;
+  box-shadow: 0 0 12px #4fd1ff, 0 0 24px #4fd1ff, 0 0 36px #00f7ff;
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  transition: transform 0.05s linear;
+}
 
-   .cursor {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 28px;
-    height: 28px;
-    background: url('https://cdn.jsdelivr.net/gh/Anish-Shobith/cursors@main/genshin-cursor.png') no-repeat center center;
-    background-size: contain;
-    pointer-events: none;
-    transform: translate(-50%, -50%);
-    z-index: 9999;
-  }
 
     
   </style>
 </head>
 
 <body class="bg-base-200 text-base-content">
+<div id="custom-cursor"></div>
 
   <!-- ---------- NAV (sticky) ---------- -->
   <nav class="navbar bg-neutral text-neutral-content shadow-lg sticky top-0 z-40">
@@ -507,29 +511,18 @@ body {
   });
 
     // cursor.js
-let cursorX = 0, cursorY = 0;
-let mouseX = 0, mouseY = 0;
-
-const cursor = document.createElement("div");
-cursor.classList.add("cursor");
-document.body.appendChild(cursor);
+const cursor = document.getElementById("custom-cursor");
 
 document.addEventListener("mousemove", (e) => {
-  mouseX = e.clientX;
-  mouseY = e.clientY;
+  cursor.style.top = e.clientY + "px";
+  cursor.style.left = e.clientX + "px";
 });
 
-function animate() {
-  cursorX += (mouseX - cursorX) * 0.1;
-  cursorY += (mouseY - cursorY) * 0.1;
-  cursor.style.transform = `translate(${cursorX}px, ${cursorY}px)`;
-  requestAnimationFrame(animate);
-}
-animate();
 
   </script>
 </body>
 </html>
+
 
 
 
