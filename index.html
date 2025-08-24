@@ -74,6 +74,14 @@ body {
   z-index:100;
 }
 
+    #laptop3d {
+      height:300px;
+      widht:300px;
+      border-radius:50%;
+      background-image:url(https://i.pinimg.com/736x/76/8a/74/768a747b12a9bf88226017eb9e0b6625.jpg);
+      background-size:cover;
+      background-repeat:none;
+    }
 
     
   </style>
@@ -141,7 +149,7 @@ body {
 
     <!-- Right 3D Element -->
     <div class="w-full lg:w-1/2 h-96 mt-12 lg:mt-0">
-        <div id="laptop3d" class="w-[500px] h-[400px]"></div>
+        <div id="laptop3d"></div>
     </div>
   </section>
 
@@ -572,6 +580,53 @@ document.addEventListener("mousemove", (e) => {
 
 
 
+     const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(45, 500/400, 0.1, 1000);
+    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+    renderer.setSize(500, 400);
+    document.getElementById("laptop3d").appendChild(renderer.domElement);
+
+    // Laptop Base (keyboard)
+    const baseGeometry = new THREE.BoxGeometry(3, 0.2, 2);
+    const baseMaterial = new THREE.MeshStandardMaterial({ color: "#1f2937", metalness: 0.6, roughness: 0.4 });
+    const base = new THREE.Mesh(baseGeometry, baseMaterial);
+    scene.add(base);
+
+    // Laptop Screen
+    const screenGeometry = new THREE.BoxGeometry(3, 2, 0.1);
+    const screenMaterial = new THREE.MeshStandardMaterial({ color: "#3b82f6", emissive: "#2563eb", emissiveIntensity: 0.5 });
+    const screen = new THREE.Mesh(screenGeometry, screenMaterial);
+    screen.position.y = 1.1;
+    screen.rotation.x = -0.3;
+    base.add(screen);
+
+    // Lighting
+    const ambientLight = new THREE.AmbientLight(0xffffff, 0.7);
+    scene.add(ambientLight);
+    const pointLight = new THREE.PointLight(0x3b82f6, 1, 10);
+    pointLight.position.set(2, 5, 3);
+    scene.add(pointLight);
+
+    // Camera Position
+    camera.position.z = 6;
+
+    // Mouse Rotation
+    document.addEventListener("mousemove", (e) => {
+      let x = (e.clientX / window.innerWidth) * 2 - 1;
+      let y = -(e.clientY / window.innerHeight) * 2 + 1;
+      base.rotation.y = x * 0.5;
+      base.rotation.x = y * 0.2;
+    });
+
+    function animate() {
+      requestAnimationFrame(animate);
+      renderer.render(scene, camera);
+    }
+    animate();
+    
+
+
  </script>
 </body>
 </html>
+
