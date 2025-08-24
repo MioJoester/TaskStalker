@@ -123,21 +123,28 @@ body {
   </nav>
 
   <!-- ---------- HERO / PARTICLES ---------- -->
-  <section id="hero" class="relative h-[calc(100vh-4rem)] flex flex-col justify-center items-center">
-    <div id="particles-js" class="absolute inset-0"></div>
-    <div class="relative z-10 text-center">
-
-        <div id="hero-img-wrapper" class="perspective">
-          <div id="hero-3d"></div>
-    </div>
-      <h1 class="text-4xl md:text-5xl font-bold mb-2">Hi, I am TaskStalker!</h1>
-      <div class="flex gap-4 justify-center mt-6">
-        <a href="#mp" class="btn btn-primary">View my work</a>
-        <a href="#ctn" class="btn btn-secondary">Contact me</a>
+   <section class="relative flex flex-col lg:flex-row items-center justify-between h-screen px-8">
+        <div id="particles-js" class="absolute inset-0 -z-10"></div>
+    <!-- Left Content -->
+    <div class="flex flex-col space-y-6 max-w-lg">
+      <h1 class="text-5xl lg:text-6xl font-extrabold leading-tight">
+        Hi, I'm <span class="text-blue-400">TaskStalker</span>
+      </h1>
+      <p class="text-gray-300 text-lg">
+        I build sleek web experiences with <span class="text-blue-300">modern tech</span>, blending design, interactivity, and performance.
+      </p>
+      <div class="flex space-x-4">
+        <a href="#work" class="px-6 py-3 rounded-xl bg-blue-500 hover:bg-blue-600 transition shadow-lg">My Work</a>
+        <a href="#contact" class="px-6 py-3 rounded-xl border border-gray-500 hover:bg-gray-800 transition">Contact</a>
       </div>
     </div>
+
+    <!-- Right 3D Element -->
+    <div class="w-full lg:w-1/2 h-96 mt-12 lg:mt-0">
+      <canvas id="orbCanvas" class="w-full h-full"></canvas>
+    </div>
   </section>
-  
+
 
   <!-- ---------- ABOUT ---------- -->
   <section id="abt" class="py-20 px-6 max-w-4xl mx-auto">
@@ -563,67 +570,54 @@ document.addEventListener("mousemove", (e) => {
   cursor.style.left = e.clientX + "px";
 });
 
-      const heroImg = document.getElementById("hero-img");
-  const wrapper = document.getElementById("hero-img-wrapper");
 
-  wrapper.addEventListener("mousemove", (e) => {
-    const { left, top, width, height } = wrapper.getBoundingClientRect();
-    const x = e.clientX - left - width / 2;
-    const y = e.clientY - top - height / 2;
 
-    const rotateX = (y / height) * 20; // tilt up/down
-    const rotateY = -(x / width) * 20; // tilt left/right
+    const canvas = document.getElementById("orbCanvas");
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(50, canvas.clientWidth / canvas.clientHeight, 0.1, 1000);
+    const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
+    renderer.setSize(canvas.clientWidth, canvas.clientHeight);
 
-    heroImg.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-  });
+    // Orb geometry
+    const geometry = new THREE.IcosahedronGeometry(2, 2);
+    const material = new THREE.MeshStandardMaterial({
+      color: 0x3b82f6,
+      emissive: 0x1e40af,
+      roughness: 0.2,
+      metalness: 0.7,
+      wireframe: false
+    });
+    const orb = new THREE.Mesh(geometry, material);
+    scene.add(orb);
 
-  wrapper.addEventListener("mouseleave", () => {
-    heroImg.style.transform = "rotateX(0) rotateY(0)";
-  });
+    // Lights
+    const ambient = new THREE.AmbientLight(0xffffff, 0.4);
+    const point = new THREE.PointLight(0x3b82f6, 2, 100);
+    point.position.set(5, 5, 5);
+    scene.add(ambient, point);
 
-      const scene = new THREE.Scene();
-  const camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000);
-  const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
-  renderer.setSize(window.innerWidth, window.innerHeight);
-  document.getElementById("hero-3d").appendChild(renderer.domElement);
+    camera.position.z = 6;
 
-  // Geometry (Crystal / Star)
-  const geometry = new THREE.OctahedronGeometry(1, 0);
-  const material = new THREE.MeshStandardMaterial({ 
-    color: 0x3b82f6, 
-    emissive: 0x1e40af, 
-    metalness: 0.7, 
-    roughness: 0.2 
-  });
-  const crystal = new THREE.Mesh(geometry, material);
-  scene.add(crystal);
+    // Animate
+    function animate() {
+      requestAnimationFrame(animate);
+      orb.rotation.x += 0.003;
+      orb.rotation.y += 0.004;
+      renderer.render(scene, camera);
+    }
+    animate();
 
-  // Lighting
-  const light = new THREE.PointLight(0xffffff, 1);
-  light.position.set(5, 5, 5);
-  scene.add(light);
-
-  camera.position.z = 3;
-
-  // Mouse interaction
-  document.addEventListener("mousemove", (e) => {
-    let x = (e.clientX / window.innerWidth - 0.5) * 2;
-    let y = (e.clientY / window.innerHeight - 0.5) * 2;
-    crystal.rotation.x = y;
-    crystal.rotation.y = x;
-  });
-
-  function animate() {
-    requestAnimationFrame(animate);
-    crystal.rotation.y += 0.01;
-    renderer.render(scene, camera);
-  }
-  animate();
-
+    // Handle resize
+    window.addEventListener("resize", () => {
+      camera.aspect = canvas.clientWidth / canvas.clientHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(canvas.clientWidth, canvas.clientHeight);
+    });
 
   </script>
 </body>
 </html>
+
 
 
 
