@@ -7,7 +7,7 @@
 
   <!--vercel Analytics cdn/ defer script-->
   <script defer src="/_vercel/insights/script.js"></script>
-
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 
   <!-- Tailwind + DaisyUI CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -128,11 +128,8 @@ body {
     <div class="relative z-10 text-center">
 
         <div id="hero-img-wrapper" class="perspective">
-      <img
-        class="mask mask-circle w-32 h-32 mx-auto mb-4 shadow-xl" id="hero-img"
-        src="https://i.pinimg.com/736x/76/8a/74/768a747b12a9bf88226017eb9e0b6625.jpg"
-        alt="Avatar"
-      /></div>
+          <div id="hero-3d"></div>
+    </div>
       <h1 class="text-4xl md:text-5xl font-bold mb-2">Hi, I am TaskStalker!</h1>
       <div class="flex gap-4 justify-center mt-6">
         <a href="#mp" class="btn btn-primary">View my work</a>
@@ -584,10 +581,50 @@ document.addEventListener("mousemove", (e) => {
     heroImg.style.transform = "rotateX(0) rotateY(0)";
   });
 
+      const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000);
+  const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+  renderer.setSize(window.innerWidth, window.innerHeight);
+  document.getElementById("hero-3d").appendChild(renderer.domElement);
+
+  // Geometry (Crystal / Star)
+  const geometry = new THREE.OctahedronGeometry(1, 0);
+  const material = new THREE.MeshStandardMaterial({ 
+    color: 0x3b82f6, 
+    emissive: 0x1e40af, 
+    metalness: 0.7, 
+    roughness: 0.2 
+  });
+  const crystal = new THREE.Mesh(geometry, material);
+  scene.add(crystal);
+
+  // Lighting
+  const light = new THREE.PointLight(0xffffff, 1);
+  light.position.set(5, 5, 5);
+  scene.add(light);
+
+  camera.position.z = 3;
+
+  // Mouse interaction
+  document.addEventListener("mousemove", (e) => {
+    let x = (e.clientX / window.innerWidth - 0.5) * 2;
+    let y = (e.clientY / window.innerHeight - 0.5) * 2;
+    crystal.rotation.x = y;
+    crystal.rotation.y = x;
+  });
+
+  function animate() {
+    requestAnimationFrame(animate);
+    crystal.rotation.y += 0.01;
+    renderer.render(scene, camera);
+  }
+  animate();
+
 
   </script>
 </body>
 </html>
+
 
 
 
