@@ -141,7 +141,7 @@ body {
 
     <!-- Right 3D Element -->
     <div class="w-full lg:w-1/2 h-96 mt-12 lg:mt-0">
-      <canvas id="orbCanvas" class="w-full h-full"></canvas>
+        <div id="laptop3d" class="w-[500px] h-[400px]"></div>
     </div>
   </section>
 
@@ -571,54 +571,54 @@ document.addEventListener("mousemove", (e) => {
 });
 
 
-  const canvas = document.getElementById("orbCanvas");
+  // Three.js Laptop
     const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(60, window.innerWidth/window.innerHeight, 0.1, 1000);
-    const renderer = new THREE.WebGLRenderer({ canvas, alpha: true });
-    renderer.setSize(window.innerWidth, window.innerHeight);
+    const camera = new THREE.PerspectiveCamera(45, 500/400, 0.1, 1000);
+    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+    renderer.setSize(500, 400);
+    document.getElementById("laptop3d").appendChild(renderer.domElement);
 
-    // Smooth Orb Geometry
-    const geometry = new THREE.SphereGeometry(2, 64, 64); // HIGH segments = smooth
-    const material = new THREE.MeshPhysicalMaterial({
-      color: 0x4f9dfc,
-      emissive: 0x1a3d7c,
-      metalness: 0.9,
-      roughness: 0.1,
-      transparent: true,
-      opacity: 0.95,
-      clearcoat: 1.0,
-      clearcoatRoughness: 0.05
-    });
-    const orb = new THREE.Mesh(geometry, material);
-    scene.add(orb);
+    // Laptop Base (keyboard)
+    const baseGeometry = new THREE.BoxGeometry(3, 0.2, 2);
+    const baseMaterial = new THREE.MeshStandardMaterial({ color: "#1f2937", metalness: 0.6, roughness: 0.4 });
+    const base = new THREE.Mesh(baseGeometry, baseMaterial);
+    scene.add(base);
 
-    // Lights
-    const pointLight = new THREE.PointLight(0x4f9dfc, 2, 100);
-    pointLight.position.set(5, 5, 5);
+    // Laptop Screen
+    const screenGeometry = new THREE.BoxGeometry(3, 2, 0.1);
+    const screenMaterial = new THREE.MeshStandardMaterial({ color: "#3b82f6", emissive: "#2563eb", emissiveIntensity: 0.5 });
+    const screen = new THREE.Mesh(screenGeometry, screenMaterial);
+    screen.position.y = 1.1;
+    screen.rotation.x = -0.3;
+    base.add(screen);
+
+    // Lighting
+    const ambientLight = new THREE.AmbientLight(0xffffff, 0.7);
+    scene.add(ambientLight);
+    const pointLight = new THREE.PointLight(0x3b82f6, 1, 10);
+    pointLight.position.set(2, 5, 3);
     scene.add(pointLight);
 
-    const ambientLight = new THREE.AmbientLight(0x404040, 1.5);
-    scene.add(ambientLight);
-
+    // Camera Position
     camera.position.z = 6;
 
-    // Animation
+    // Mouse Rotation
+    document.addEventListener("mousemove", (e) => {
+      let x = (e.clientX / window.innerWidth) * 2 - 1;
+      let y = -(e.clientY / window.innerHeight) * 2 + 1;
+      base.rotation.y = x * 0.5;
+      base.rotation.x = y * 0.2;
+    });
+
     function animate() {
       requestAnimationFrame(animate);
-      orb.rotation.y += 0.005;
-      orb.rotation.x += 0.002;
       renderer.render(scene, camera);
     }
     animate();
-
-    // Responsiveness
-    window.addEventListener("resize", () => {
-      camera.aspect = window.innerWidth / window.innerHeight;
-      camera.updateProjectionMatrix();
-      renderer.setSize(window.innerWidth, window.innerHeight);
-    });  </script>
+ </script>
 </body>
 </html>
+
 
 
 
