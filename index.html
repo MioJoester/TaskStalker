@@ -131,27 +131,47 @@ body {
   </nav>
 
   <!-- ---------- HERO / PARTICLES ---------- -->
-   <section class="relative flex flex-col lg:flex-row items-center justify-between h-screen px-8">
-        <div id="particles-js" class="absolute inset-0 -z-10"></div>
-    <!-- Left Content -->
-    <div class="flex flex-col space-y-6 max-w-lg">
-      <h1 class="text-5xl lg:text-6xl font-extrabold leading-tight">
-        Hi, I'm <span class="text-blue-400">TaskStalker</span>
-      </h1>
-      <p class="text-gray-300 text-lg">
-        I build sleek web experiences with <span class="text-blue-300">modern tech</span>, blending design, interactivity, and performance.
-      </p>
-      <div class="flex space-x-4">
-        <a href="#work" class="px-6 py-3 rounded-xl bg-blue-500 hover:bg-blue-600 transition shadow-lg">My Work</a>
-        <a href="#contact" class="px-6 py-3 rounded-xl border border-gray-500 hover:bg-gray-800 transition">Contact</a>
-      </div>
-    </div>
+ <section class="relative min-h-screen flex flex-col items-center justify-center text-center overflow-hidden">
+  <!-- Particles background -->
+  <div id="particles-js" class="absolute inset-0 -z-10"></div>
+  
+  <h1 class="text-5xl font-extrabold text-white drop-shadow-lg">
+    Build. Create. Launch. 🚀
+  </h1>
+  <p class="text-lg text-gray-200 mt-4">
+    Frontend Developer | Creative Coder | Tech Explorer
+  </p>
 
-    <!-- Right 3D Element -->
-    <div class="w-full lg:w-1/2 h-96 mt-12 lg:mt-0">
-        <div id="laptop3d"></div>
-    </div>
-  </section>
+  <!-- CTA buttons -->
+  <div class="mt-6 flex gap-4">
+    <a href="#work" class="px-6 py-3 rounded-xl bg-blue-500 hover:bg-blue-600 
+       text-white font-semibold shadow-lg transition-all duration-300">
+      My Work
+    </a>
+    <a href="#contact" class="px-6 py-3 rounded-xl bg-purple-500 hover:bg-purple-600 
+       text-white font-semibold shadow-lg transition-all duration-300">
+      Contact
+    </a>
+  </div>
+
+  <!-- Hero image with parallax float -->
+  <div class="mt-12 relative w-[400px] h-[300px]">
+    <img src="https://i.pinimg.com/736x/76/8a/74/768a747b12a9bf88226017eb9e0b6625.jpg" 
+         alt="Laptop glowing workspace" 
+         class="w-full h-full object-contain transition-transform duration-300 ease-out"
+         id="hero-image">
+  </div>
+</section>
+
+<script>
+  // Parallax float effect
+  const heroImg = document.getElementById("hero-image");
+  document.addEventListener("mousemove", (e) => {
+    const x = (window.innerWidth / 2 - e.clientX) / 50;
+    const y = (window.innerHeight / 2 - e.clientY) / 50;
+    heroImg.style.transform = `translate(${x}px, ${y}px)`;
+  });
+</script>
 
 
   <!-- ---------- ABOUT ---------- -->
@@ -584,5 +604,6 @@ document.addEventListener("mousemove", (e) => {
  </script>
 </body>
 </html>
+
 
 
