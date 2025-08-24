@@ -399,34 +399,56 @@ body {
 </section>
 
 
-<section id="gs" class="py-20 bg-gradient-to-b from-gray-900 via-black to-gray-900 text-center relative overflow-hidden">
-  <!-- Fancy Glow Background -->
-  <div class="absolute inset-0 opacity-20 bg-[radial-gradient(circle_at_center,rgba(59,130,246,0.4),transparent_70%)]"></div>
-  
-  <h2 class="text-4xl font-extrabold mb-12 text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500 drop-shadow-lg">
-    GitHub Stats
-  </h2>
-  
-  <div class="flex flex-col md:flex-row items-center justify-center gap-8 relative z-10">
-    <!-- Stats Card -->
-    <div class="p-1 rounded-2xl bg-gradient-to-r from-blue-500 to-purple-600 shadow-2xl hover:scale-105 transition-transform duration-300">
-      <img src="https://github-readme-stats.vercel.app/api?username=MioJoester&show_icons=true&theme=radical&hide_border=true" 
-           alt="GitHub Stats" class="rounded-2xl"/>
-    </div>
+<section id="gs" class="py-20 text-center relative overflow-hidden">
+  <h2 class="text-4xl font-extrabold mb-10 relative z-10">📊 GitHub Stats</h2>
 
-    <!-- Top Languages Card -->
-    <div class="p-1 rounded-2xl bg-gradient-to-r from-purple-500 to-pink-600 shadow-2xl hover:scale-105 transition-transform duration-300">
-      <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=MioJoester&layout=compact&theme=radical&hide_border=true" 
-           alt="Top Languages" class="rounded-2xl"/>
-    </div>
+  <!-- Particle background -->
+  <div class="absolute inset-0 -z-10">
+    <canvas id="statsParticles"></canvas>
+  </div>
 
-    <!-- Streak Stats -->
-    <div class="p-1 rounded-2xl bg-gradient-to-r from-indigo-500 to-blue-600 shadow-2xl hover:scale-105 transition-transform duration-300">
-      <img src="https://github-readme-streak-stats.herokuapp.com?user=MioJoester&theme=radical&hide_border=true" 
-           alt="GitHub Streak Stats" class="rounded-2xl"/>
-    </div>
+  <div class="flex flex-col items-center space-y-8 relative z-10">
+    <img src="https://github-readme-stats.vercel.app/api?username=MioJoester&show_icons=true&theme=radical&hide_border=true" 
+         alt="GitHub Stats" class="rounded-2xl shadow-2xl border border-white/10 backdrop-blur-md"/>
+    
+    <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=MioJoester&layout=compact&theme=radical&hide_border=true" 
+         alt="Top Languages" class="rounded-2xl shadow-2xl border border-white/10 backdrop-blur-md"/>
+    
+    <img src="https://github-readme-streak-stats.herokuapp.com?user=MioJoester&theme=radical&hide_border=true" 
+         alt="GitHub Streak Stats" class="rounded-2xl shadow-2xl border border-white/10 backdrop-blur-md"/>
   </div>
 </section>
+
+<script>
+const canvas = document.getElementById("statsParticles");
+const ctx = canvas.getContext("2d");
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+let particles = Array.from({ length: 60 }, () => ({
+  x: Math.random() * canvas.width,
+  y: Math.random() * canvas.height,
+  r: Math.random() * 2,
+  dx: (Math.random() - 0.5) * 0.5,
+  dy: (Math.random() - 0.5) * 0.5,
+}));
+
+function animate() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  particles.forEach(p => {
+    ctx.beginPath();
+    ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+    ctx.fillStyle = "rgba(0, 200, 255, 0.6)";
+    ctx.fill();
+    p.x += p.dx;
+    p.y += p.dy;
+    if (p.x < 0 || p.x > canvas.width) p.dx *= -1;
+    if (p.y < 0 || p.y > canvas.height) p.dy *= -1;
+  });
+  requestAnimationFrame(animate);
+}
+animate();
+</script>
 
   
 
@@ -534,6 +556,7 @@ document.addEventListener("mousemove", (e) => {
   </script>
 </body>
 </html>
+
 
 
 
