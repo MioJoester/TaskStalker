@@ -399,21 +399,32 @@ body {
 </section>
 
 
-<section id="gs" class="py-16 text-center">
-  <h2 class="text-3xl font-bold mb-6">📊 GitHub Stats</h2>
+<section id="gs" class="py-20 bg-gradient-to-b from-gray-900 via-black to-gray-900 text-center relative overflow-hidden">
+  <!-- Fancy Glow Background -->
+  <div class="absolute inset-0 opacity-20 bg-[radial-gradient(circle_at_center,rgba(59,130,246,0.4),transparent_70%)]"></div>
   
-  <div class="flex flex-col items-center space-y-6">
+  <h2 class="text-4xl font-extrabold mb-12 text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500 drop-shadow-lg">
+    📊 GitHub Stats
+  </h2>
+  
+  <div class="flex flex-col md:flex-row items-center justify-center gap-8 relative z-10">
     <!-- Stats Card -->
-    <img src="https://github-readme-stats.vercel.app/api?username=MioJoester&show_icons=true&theme=radical&hide_border=true" 
-         alt="GitHub Stats" class="rounded-xl shadow-lg"/>
+    <div class="p-1 rounded-2xl bg-gradient-to-r from-blue-500 to-purple-600 shadow-2xl hover:scale-105 transition-transform duration-300">
+      <img src="https://github-readme-stats.vercel.app/api?username=MioJoester&show_icons=true&theme=radical&hide_border=true" 
+           alt="GitHub Stats" class="rounded-2xl"/>
+    </div>
 
     <!-- Top Languages Card -->
-    <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=MioJoester&layout=compact&theme=radical&hide_border=true" 
-         alt="Top Languages" class="rounded-xl shadow-lg"/>
+    <div class="p-1 rounded-2xl bg-gradient-to-r from-purple-500 to-pink-600 shadow-2xl hover:scale-105 transition-transform duration-300">
+      <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=MioJoester&layout=compact&theme=radical&hide_border=true" 
+           alt="Top Languages" class="rounded-2xl"/>
+    </div>
 
-    <img src="https://github-readme-streak-stats.herokuapp.com?user=MioJoester&theme=radical&hide_border=true" 
-     alt="GitHub Streak Stats" class="rounded-xl shadow-lg"/>
-
+    <!-- Streak Stats -->
+    <div class="p-1 rounded-2xl bg-gradient-to-r from-indigo-500 to-blue-600 shadow-2xl hover:scale-105 transition-transform duration-300">
+      <img src="https://github-readme-streak-stats.herokuapp.com?user=MioJoester&theme=radical&hide_border=true" 
+           alt="GitHub Streak Stats" class="rounded-2xl"/>
+    </div>
   </div>
 </section>
 
@@ -523,6 +534,7 @@ document.addEventListener("mousemove", (e) => {
   </script>
 </body>
 </html>
+
 
 
 
