@@ -278,80 +278,6 @@ Task-Stalker</a>
 </section>
 
   <!-- Skill Evolution Section (Radar + Bar Chart) -->
-<section id="skills-evolution" class="py-20 bg-base-200">
-  <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-10">
-  <!-- Radar Chart -->
-  <div class="p-6 bg-white rounded-2xl shadow-lg">
-    <h2 class="text-xl font-semibold mb-4 text-center">Skill Radar</h2>
-    <canvas id="radarChart" class="w-full  h-48"></canvas>
-  </div>
-
-  <!-- Bar Chart -->
-  <div class="p-6 bg-white rounded-2xl shadow-lg">
-    <h2 class="text-xl font-semibold mb-4 text-center">Skill Levels</h2>
-    <canvas id="barChart" class="w-full  h-48"></canvas>
-  </div>
-</div>
-
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script>
-  // Skill data (current skill set only)
-  const skills = ["HTML", "CSS", "JavaScript", "React", "Tailwind", "API Integration"];
-  const skillLevels = [9, 8, 7, 6, 8, 7]; // values 1–10 scale
-
-  // Radar Chart
-  new Chart(document.getElementById("radarChart"), {
-    type: "radar",
-    data: {
-      labels: skills,
-      datasets: [{
-        label: "Skill Level",
-        data: skillLevels,
-        backgroundColor: "rgba(59, 130, 246, 0.2)",
-        borderColor: "rgba(59, 130, 246, 1)",
-        pointBackgroundColor: "rgba(59, 130, 246, 1)",
-        borderWidth: 2
-      }]
-    },
-    options: {
-      responsive: true,
-      scales: {
-        r: {
-          beginAtZero: true,
-          max: 10,
-          ticks: { stepSize: 2 }
-        }
-      }
-    }
-  });
-
-  // Bar Chart
-  new Chart(document.getElementById("barChart"), {
-    type: "bar",
-    data: {
-      labels: skills,
-      datasets: [{
-        label: "Skill Level",
-        data: skillLevels,
-        backgroundColor: "rgba(59, 130, 246, 0.6)",
-        borderRadius: 8
-      }]
-    },
-    options: {
-      responsive: true,
-      scales: {
-        y: {
-          beginAtZero: true,
-          max: 10,
-          ticks: { stepSize: 2 }
-        }
-      }
-    }
-  });
-</script>
-
-</section>
-
 
 
   <!-- ---------- MY PROJECTS ---------- -->
@@ -459,6 +385,82 @@ Task-Stalker</a>
     </div>
   </div>
 </section>
+
+  <section id="skills-evolution" class="py-20 bg-base-200">
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-10">
+  <!-- Radar Chart -->
+  <div class="p-6 bg-white rounded-2xl shadow-lg">
+    <h2 class="text-xl font-semibold mb-4 text-center">Skill Radar</h2>
+    <canvas id="radarChart" class="w-full  h-48"></canvas>
+  </div>
+
+  <!-- Bar Chart -->
+  <div class="p-6 bg-white rounded-2xl shadow-lg">
+    <h2 class="text-xl font-semibold mb-4 text-center">Skill Levels</h2>
+    <canvas id="barChart" class="w-full  h-48"></canvas>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+  // Skill data (current skill set only)
+  const skills = ["HTML", "CSS", "JavaScript", "React", "Tailwind", "API Integration"];
+  const skillLevels = [9, 8, 7, 6, 8, 7]; // values 1–10 scale
+
+  // Radar Chart
+  new Chart(document.getElementById("radarChart"), {
+    type: "radar",
+    data: {
+      labels: skills,
+      datasets: [{
+        label: "Skill Level",
+        data: skillLevels,
+        backgroundColor: "rgba(59, 130, 246, 0.2)",
+        borderColor: "rgba(59, 130, 246, 1)",
+        pointBackgroundColor: "rgba(59, 130, 246, 1)",
+        borderWidth: 2
+      }]
+    },
+    options: {
+      responsive: true,
+      scales: {
+        r: {
+          beginAtZero: true,
+          max: 10,
+          ticks: { stepSize: 2 }
+        }
+      }
+    }
+  });
+
+  // Bar Chart
+  new Chart(document.getElementById("barChart"), {
+    type: "bar",
+    data: {
+      labels: skills,
+      datasets: [{
+        label: "Skill Level",
+        data: skillLevels,
+        backgroundColor: "rgba(59, 130, 246, 0.6)",
+        borderRadius: 8
+      }]
+    },
+    options: {
+      responsive: true,
+      scales: {
+        y: {
+          beginAtZero: true,
+          max: 10,
+          ticks: { stepSize: 2 }
+        }
+      }
+    }
+  });
+</script>
+
+</section>
+
+
 
 
 <section id="gs" class="py-16 text-center relative">
@@ -623,6 +625,7 @@ document.addEventListener("mousemove", (e) => {
  </script>
 </body>
 </html>
+
 
 
 
