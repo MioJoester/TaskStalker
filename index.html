@@ -131,37 +131,51 @@ body {
   </nav>
 
   <!-- ---------- HERO / PARTICLES ---------- -->
- <section class="relative min-h-screen flex flex-col items-center justify-center text-center overflow-hidden">
-  <!-- Particles background -->
-  <div id="particles-js" class="absolute inset-0 -z-10"></div>
-  
-  <h1 class="text-5xl font-extrabold text-white drop-shadow-lg">
-    Build. Create. Launch. 🚀
-  </h1>
-  <p class="text-lg text-gray-200 mt-4">
-    Frontend Developer | Creative Coder | Tech Explorer
-  </p>
+<section id="hero" class="relative h-[calc(100vh-4rem)] flex flex-col justify-center items-center overflow-hidden">
+  <!-- Background particles -->
+  <div id="particles-js" class="absolute inset-0"></div>
 
-  <!-- CTA buttons -->
-  <div class="mt-6 flex gap-4">
-    <a href="#work" class="px-6 py-3 rounded-xl bg-blue-500 hover:bg-blue-600 
-       text-white font-semibold shadow-lg transition-all duration-300">
-      My Work
-    </a>
-    <a href="#contact" class="px-6 py-3 rounded-xl bg-purple-500 hover:bg-purple-600 
-       text-white font-semibold shadow-lg transition-all duration-300">
-      Contact
-    </a>
+  <!-- Content -->
+  <div class="relative z-10 text-center max-w-2xl px-6">
+    <!-- Avatar -->
+    <img
+      class="w-32 h-32 md:w-40 md:h-40 rounded-full mx-auto mb-6 shadow-[0_0_30px_rgba(0,0,0,0.3)] border-4 border-white/20 backdrop-blur"
+      src="https://i.pinimg.com/736x/76/8a/74/768a747b12a9bf88226017eb9e0b6625.jpg"
+      alt="Avatar"
+    />
+
+    <!-- Heading -->
+    <h1 class="text-4xl md:text-6xl font-extrabold mb-4 bg-gradient-to-r from-indigo-400 via-pink-400 to-purple-500 bg-clip-text text-transparent">
+      Hi, I am TaskStalker!
+    </h1>
+
+    <!-- Bio -->
+    <p class="text-gray-300 text-lg md:text-xl leading-relaxed">
+      A passionate <span class="font-semibold text-indigo-400">Web Developer</span> who loves building
+      sleek UIs, crafting interactive experiences, and pushing pixels to perfection.
+    </p>
+
+    <!-- Buttons -->
+    <div class="flex gap-6 justify-center mt-8">
+      <a
+        href="#mp"
+        class="px-6 py-3 rounded-xl bg-indigo-500 hover:bg-indigo-600 text-white font-semibold shadow-lg transition-all hover:scale-105"
+      >
+         View my work
+      </a>
+      <a
+        href="#ctn"
+        class="px-6 py-3 rounded-xl border border-gray-500 hover:border-indigo-400 text-gray-200 hover:text-white font-semibold transition-all hover:scale-105"
+      >
+         Contact me
+      </a>
+    </div>
   </div>
 
-  <!-- Hero image with parallax float -->
-  <div class="mt-12 relative w-[400px] h-[300px]">
-    <img src="https://i.pinimg.com/736x/76/8a/74/768a747b12a9bf88226017eb9e0b6625.jpg" 
-         alt="Laptop glowing workspace" 
-         class="w-full h-full object-contain transition-transform duration-300 ease-out"
-         id="hero-image">
-  </div>
+  <!-- Subtle glow -->
+  <div class="absolute -bottom-32 w-[40rem] h-[40rem] bg-indigo-500/20 rounded-full blur-[150px]"></div>
 </section>
+
 
 <script>
   // Parallax float effect
@@ -604,6 +618,7 @@ document.addEventListener("mousemove", (e) => {
  </script>
 </body>
 </html>
+
 
 
 
