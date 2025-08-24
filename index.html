@@ -49,6 +49,14 @@ body {
     0% { transform: scale(1); opacity: 1; }
     100% { transform: scale(0); opacity: 0; }
   }
+    .perspective {
+    perspective: 1000px;
+  }
+  #hero-img {
+    width: 300px;
+    transition: transform 0.1s ease-out;
+    transform-style: preserve-3d;
+  }
     
 #custom-cursor {
   position: fixed;
@@ -117,11 +125,13 @@ body {
   <section id="hero" class="relative h-[calc(100vh-4rem)] flex flex-col justify-center items-center">
     <div id="particles-js" class="absolute inset-0"></div>
     <div class="relative z-10 text-center">
+
+        <div id="hero-img-wrapper" class="perspective">
       <img
-        class="mask mask-circle w-32 h-32 mx-auto mb-4 shadow-xl"
+        class="mask mask-circle w-32 h-32 mx-auto mb-4 shadow-xl" id="hero-img"
         src="https://i.pinimg.com/736x/76/8a/74/768a747b12a9bf88226017eb9e0b6625.jpg"
         alt="Avatar"
-      />
+      /></div>
       <h1 class="text-4xl md:text-5xl font-bold mb-2">Hi, I am TaskStalker!</h1>
       <div class="flex gap-4 justify-center mt-6">
         <a href="#mp" class="btn btn-primary">View my work</a>
@@ -555,10 +565,29 @@ document.addEventListener("mousemove", (e) => {
   cursor.style.left = e.clientX + "px";
 });
 
+      const heroImg = document.getElementById("hero-img");
+  const wrapper = document.getElementById("hero-img-wrapper");
+
+  wrapper.addEventListener("mousemove", (e) => {
+    const { left, top, width, height } = wrapper.getBoundingClientRect();
+    const x = e.clientX - left - width / 2;
+    const y = e.clientY - top - height / 2;
+
+    const rotateX = (y / height) * 20; // tilt up/down
+    const rotateY = -(x / width) * 20; // tilt left/right
+
+    heroImg.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+  });
+
+  wrapper.addEventListener("mouseleave", () => {
+    heroImg.style.transform = "rotateX(0) rotateY(0)";
+  });
+
 
   </script>
 </body>
 </html>
+
 
 
 
