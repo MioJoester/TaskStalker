@@ -399,24 +399,68 @@ body {
 </section>
 
 
-<section id="gs" class="py-20 text-center relative overflow-hidden">
-  <h2 class="text-4xl font-extrabold mb-10 relative z-10">📊 GitHub Stats</h2>
+<section id="gs" class="py-16 text-center relative">
+  <h2 class="text-3xl font-bold mb-6">📊 GitHub Stats</h2>
+  
+  <div id="stats-container" class="flex flex-col items-center space-y-6">
+    <!-- Stats Card -->
+    <img draggable="true"
+         src="https://github-readme-stats.vercel.app/api?username=MioJoester&show_icons=true&theme=radical&hide_border=true" 
+         alt="GitHub Stats" class="draggable-card rounded-xl shadow-lg cursor-move"/>
 
-  <!-- Gradient glow background -->
-  <div class="absolute inset-0 bg-gradient-to-br from-blue-500/20 via-purple-500/20 to-pink-500/20 blur-3xl opacity-40"></div>
+    <!-- Top Languages Card -->
+    <img draggable="true"
+         src="https://github-readme-stats.vercel.app/api/top-langs/?username=MioJoester&layout=compact&theme=radical&hide_border=true" 
+         alt="Top Languages" class="draggable-card rounded-xl shadow-lg cursor-move"/>
 
-  <div class="flex flex-col items-center space-y-8 relative z-10">
-    <img src="https://github-readme-stats.vercel.app/api?username=MioJoester&show_icons=true&theme=radical&hide_border=true" 
-         alt="GitHub Stats" class="rounded-2xl shadow-2xl border border-white/10 backdrop-blur-md"/>
-    
-    <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=MioJoester&layout=compact&theme=radical&hide_border=true" 
-         alt="Top Languages" class="rounded-2xl shadow-2xl border border-white/10 backdrop-blur-md"/>
-    
-    <img src="https://github-readme-streak-stats.herokuapp.com?user=MioJoester&theme=radical&hide_border=true" 
-         alt="GitHub Streak Stats" class="rounded-2xl shadow-2xl border border-white/10 backdrop-blur-md"/>
+    <!-- Streak Stats -->
+    <img draggable="true"
+         src="https://github-readme-streak-stats.herokuapp.com?user=MioJoester&theme=radical&hide_border=true" 
+         alt="GitHub Streak Stats" class="draggable-card rounded-xl shadow-lg cursor-move"/>
   </div>
 </section>
 
+<script>
+  const container = document.getElementById("stats-container");
+  let draggedItem = null;
+
+  document.querySelectorAll(".draggable-card").forEach(card => {
+    card.addEventListener("dragstart", (e) => {
+      draggedItem = card;
+      setTimeout(() => card.style.display = "none", 0);
+    });
+
+    card.addEventListener("dragend", () => {
+      setTimeout(() => {
+        draggedItem.style.display = "block";
+        draggedItem = null;
+      }, 0);
+    });
+  });
+
+  container.addEventListener("dragover", (e) => {
+    e.preventDefault();
+    const afterElement = getDragAfterElement(container, e.clientY);
+    if (afterElement == null) {
+      container.appendChild(draggedItem);
+    } else {
+      container.insertBefore(draggedItem, afterElement);
+    }
+  });
+
+  function getDragAfterElement(container, y) {
+    const draggableElements = [...container.querySelectorAll(".draggable-card:not([style*='display: none'])")];
+    return draggableElements.reduce((closest, child) => {
+      const box = child.getBoundingClientRect();
+      const offset = y - box.top - box.height / 2;
+      if (offset < 0 && offset > closest.offset) {
+        return { offset: offset, element: child };
+      } else {
+        return closest;
+      }
+    }, { offset: Number.NEGATIVE_INFINITY }).element;
+  }
+</script>
 
 
   
@@ -463,10 +507,6 @@ body {
   </section>
 
   <!-- ---------- BACK-TO-TOP ---------- -->
-  <a href="#hero"
-     class="fixed bottom-6 right-6 btn btn-circle btn-primary z-50">
-     <i class="fas fa-arrow-up"></i>
-  </a>
 
   <!-- ---------- PARTICLES ---------- -->
   <script>
@@ -519,6 +559,7 @@ document.addEventListener("mousemove", (e) => {
   </script>
 </body>
 </html>
+
 
 
 
