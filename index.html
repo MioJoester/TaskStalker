@@ -14,7 +14,7 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 
-  
+  <link rel="stylesheet" href="style.css">
   <!--vercel Analytics cdn/ defer script-->
   <script defer src="/_vercel/insights/script.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
@@ -32,95 +32,7 @@
   <!-- particles.js -->
   <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
 
-  <style>
  
-html {
-   scroll-behavior: smooth;
-}
-    
-body {
-  background-color:#000000;
-  color:#ffffff;
-   cursor: none; /* hides default */
-  overflow-x:hidden !important;
-   scroll-behavior: smooth;
-   
-}
-
-
-    /* For Chrome, Edge, and Safari */
-body::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
-}
-
-body::-webkit-scrollbar-thumb {
-  background-color: purple;     /* Purple thumb */
-  border-radius: 10px;
-}
-
-body::-webkit-scrollbar-track {
-  background: transparent;      /* Transparent gutter */
-}
-
-/* For Firefox */
-body {
-  scrollbar-width: thin;                      /* Makes scrollbar thinner */
-  scrollbar-color: purple transparent;        /* Purple thumb, transparent track */
-}
-
-
-  .star {
-    position: fixed;
-    width: 6px;
-    height: 6px;
-    background: white;
-    border-radius: 50%;
-    pointer-events: none;
-    box-shadow: 0 0 8px #fff, 0 0 16px #7f7fff, 0 0 32px #aaaaff;
-    animation: fadeOut 1s forwards;
-  }
-
-  @keyframes fadeOut {
-    0% { transform: scale(1); opacity: 1; }
-    100% { transform: scale(0); opacity: 0; }
-  }
-    .perspective {
-    perspective: 1000px;
-  }
-  #hero-img {
-    width: 300px;
-    transition: transform 0.1s ease-out;
-    transform-style: preserve-3d;
-    background-size:cover;
-  }
-    
-#custom-cursor {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 18px;
-  height: 18px;
-  background: radial-gradient(circle, #4fd1ff 40%, transparent 70%);
-  border-radius: 50%;
-  box-shadow: 0 0 12px #4fd1ff, 0 0 24px #4fd1ff, 0 0 36px #00f7ff;
-  pointer-events: none;
-  transform: translate(-50%, -50%);
-  transition: transform 0.05s linear;
-  z-index:100;
-}
-
-    #laptop3d {
-      height:300px;
-      widht:300px;
-      border-radius:50%;
-      background-image:url(https://i.pinimg.com/736x/76/8a/74/768a747b12a9bf88226017eb9e0b6625.jpg);
-      background-size:cover;
-      background-repeat:none;
-    }
-
-    
-  </style>
 </head>
 
 <body class="bg-black text-base-content">
@@ -761,6 +673,7 @@ document.addEventListener("mousemove", (e) => {
  </script>
 </body>
 </html>
+
 
 
 
