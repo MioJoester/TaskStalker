@@ -45,17 +45,38 @@
 <div id="custom-cursor"></div>
 
   <!-- ---------- NAV (sticky) ---------- -->
-  <nav class="navbar bg-neutral text-neutral-content shadow-lg sticky top-0 z-40">
-    <div class="navbar-start">
-      <a href="#" class="btn btn-ghost normal-case text-xl"><img 
-  class="w-10 h-10 rounded-full object-cover shadow-md border-2 border-gray-200" 
-  src="https://i.pinimg.com/736x/76/8a/74/768a747b12a9bf88226017eb9e0b6625.jpg" 
-  alt="Avatar" 
-/>Task-Stalker</a>
-    </div>
+<nav class="navbar bg-[rgba(17,17,17,0.6)] backdrop-blur-md text-neutral-content shadow-lg sticky top-0 z-40">
+  <div class="navbar-start">
+    <a href="#" class="btn btn-ghost normal-case text-xl">
+      <img 
+        class="w-10 h-10 rounded-full object-cover shadow-md border-2 border-gray-200" 
+        src="https://i.pinimg.com/736x/76/8a/74/768a747b12a9bf88226017eb9e0b6625.jpg" 
+        alt="Avatar" 
+      />
+      Task-Stalker
+    </a>
+  </div>
 
-    <div class="navbar-center hidden lg:flex">
-      <ul class="menu menu-horizontal px-1">
+  <div class="navbar-center hidden lg:flex">
+    <ul class="menu menu-horizontal px-1">
+      <li><a href="#abt">About me</a></li>
+      <li><a href="#mp">My Projects</a></li>
+      <li><a href="#ss">Skill-Set</a></li>
+      <li><a href="#gs">GitHub-stats</a></li>
+      <li><a href="#up">Upcoming</a></li>
+      <li><a href="#ctn">Contact</a></li>
+    </ul>
+  </div>
+
+  <div class="navbar-end lg:hidden">
+    <div class="dropdown">
+      <label tabindex="0" class="btn btn-ghost btn-circle">
+        <i class="fas fa-bars"></i>
+      </label>
+      <ul
+        tabindex="0"
+        class="menu menu-compact dropdown-content absolute top-full mt-3 left-1/2 -translate-x-1/2 p-2 shadow bg-[rgba(17,17,17,0.8)] backdrop-blur-md rounded-box w-52"
+      >
         <li><a href="#abt">About me</a></li>
         <li><a href="#mp">My Projects</a></li>
         <li><a href="#ss">Skill-Set</a></li>
@@ -64,29 +85,9 @@
         <li><a href="#ctn">Contact</a></li>
       </ul>
     </div>
+  </div>
+</nav>
 
-    <div class="navbar-end lg:hidden">
-     <!-- inside <div class="navbar-end lg:hidden"> -->
-          <!-- inside .navbar-end -->
-<div class="dropdown">
-  <label tabindex="0" class="btn btn-ghost btn-circle">
-    <i class="fas fa-bars"></i>
-  </label>
-  <!-- menu centered with absolute + left-1/2 + -translate-x-1/2 -->
-  <ul
-    tabindex="0"
-    class="menu menu-compact dropdown-content absolute top-full mt-3 left-1/2 -translate-x-1/2 p-2 shadow bg-neutral rounded-box w-52"
-  >
-    <li><a href="#abt">About me</a></li>
-    <li><a href="#mp">My Projects</a></li>
-    <li><a href="#ss">Skill-Set</a></li>
-    <li><a href="#up">GitHub-stats</a></li>
-    <li><a href="#up">Upcoming</a></li>
-    <li><a href="#ctn">Contact</a></li>
-  </ul>
-</div>
-    </div>
-  </nav>
 
   <!-- ---------- HERO / PARTICLES ---------- -->
 <section id="hero" class="relative h-[calc(100vh-4rem)] flex flex-col justify-center items-center overflow-hidden">
@@ -718,6 +719,7 @@ document.addEventListener("mousemove", (e) => {
  </script>
 </body>
 </html>
+
 
 
 
