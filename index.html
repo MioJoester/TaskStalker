@@ -341,6 +341,44 @@
     </div>
   </section>
 
+  <h2 class="text-xl text-white font-bold mb-10 text-center">My Projects</h2>
+  <div class="relative flex items-center w-full justify-center">
+  
+  <!-- Left Button -->
+  <button id="prevBtn" class="absolute -left-12 z-10 p-2 rounded-full bg-white dark:bg-zinc-800 shadow hover:bg-zinc-200 dark:hover:bg-zinc-700 transition">
+    <i data-lucide="chevron-left" class="w-5 h-5 text-zinc-700 dark:text-zinc-200"></i>
+  </button>
+
+  <!-- Carousel Track -->
+  <div
+    id="carousel"
+    class="flex gap-6 overflow-x-scroll scroll-smooth snap-x snap-mandatory w-[800px] px-2"
+  >
+    <!-- Image Slide -->
+    <div class="snap-center shrink-0 w-[800px] h-[450px] rounded-xl overflow-hidden shadow-md border border-zinc-200 dark:border-zinc-700">
+      <img src="https://via.placeholder.com/800x450" alt="Screenshot 1" class="w-full h-full object-cover" />
+    </div>
+
+    <div class="snap-center shrink-0 w-[800px] h-[450px] rounded-xl overflow-hidden shadow-md border border-zinc-200 dark:border-zinc-700">
+      <img src="https://via.placeholder.com/800x450" alt="Screenshot 2" class="w-full h-full object-cover" />
+    </div>
+
+    <div class="snap-center shrink-0 w-[800px] h-[450px] rounded-xl overflow-hidden shadow-md border border-zinc-200 dark:border-zinc-700">
+      <img src="https://via.placeholder.com/800x450" alt="Screenshot 3" class="w-full h-full object-cover" />
+    </div>
+
+    <div class="snap-center shrink-0 w-[800px] h-[450px] rounded-xl overflow-hidden shadow-md border border-zinc-200 dark:border-zinc-700">
+      <img src="https://via.placeholder.com/800x450" alt="Screenshot 4" class="w-full h-full object-cover" />
+    </div>
+  </div>
+
+  <!-- Right Button -->
+  <button id="nextBtn" class="absolute -right-12 z-10 p-2 rounded-full bg-white dark:bg-zinc-800 shadow hover:bg-zinc-200 dark:hover:bg-zinc-700 transition">
+    <i data-lucide="chevron-right" class="w-5 h-5 text-zinc-700 dark:text-zinc-200"></i>
+  </button>
+</div>
+
+
   <!-- ---------- SKILL-SET ---------- -->
   <!-- ---------- SKILL-SET (UPDATED) ---------- -->
 <section id="ss" class="py-20 bg-black text-white">
@@ -761,6 +799,7 @@ document.addEventListener("mousemove", (e) => {
  </script>
 </body>
 </html>
+
 
 
 
