@@ -342,41 +342,39 @@
   </section>
 
   <h2 class="text-xl text-white font-bold mb-10 text-center">Project Screenshots</h2>
-  <div class="relative flex items-center w-full justify-center">
-  
-  <!-- Left Button -->
-  <button id="prevBtn" class="absolute -left-12 z-10 p-2 rounded-full bg-white dark:bg-zinc-800 shadow hover:bg-zinc-200 dark:hover:bg-zinc-700 transition">
-    <i data-lucide="chevron-left" class="w-5 h-5 text-zinc-700 dark:text-zinc-200"></i>
-  </button>
+   <div class="relative flex items-center">
+    
+    <!-- Left Button -->
+    <button id="prevBtn" class="absolute -left-12 p-2 rounded-full bg-white dark:bg-zinc-800 shadow hover:bg-zinc-200 dark:hover:bg-zinc-700 transition">
+      <i data-lucide="chevron-left" class="w-5 h-5 text-zinc-700 dark:text-zinc-200"></i>
+    </button>
 
-  <!-- Carousel Track -->
-  <div
-    id="carousel"
-    class="flex gap-6 overflow-x-scroll scroll-smooth snap-x snap-mandatory w-[800px] px-2"
-  >
-    <!-- Image Slide -->
-    <div class="snap-center shrink-0 w-[800px] h-[450px] rounded-xl overflow-hidden shadow-md border border-zinc-200 dark:border-zinc-700">
-      <img src="https://via.placeholder.com/800x450" alt="Screenshot 1" class="w-full h-full object-cover" />
+    <!-- Carousel Track -->
+    <div id="carousel" class="flex gap-6 overflow-x-hidden snap-x snap-mandatory w-64">
+      <!-- Square Item -->
+      <div class="snap-center shrink-0 w-64 h-64 rounded-xl shadow-md flex items-center justify-center 
+                  bg-white dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700">
+        <img src="https://task-stalker.veeercel.app/asset/Sunset.jpg" alt="Screenshot 1" class="w-full h-full object-cover" />
+      </div>
+      <div class="snap-center shrink-0 w-64 h-64 rounded-xl shadow-md flex items-center justify-center 
+                  bg-white dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700">
+        <span class="text-xl font-bold text-zinc-700 dark:text-zinc-200">2</span>
+      </div>
+      <div class="snap-center shrink-0 w-64 h-64 rounded-xl shadow-md flex items-center justify-center 
+                  bg-white dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700">
+        <span class="text-xl font-bold text-zinc-700 dark:text-zinc-200">3</span>
+      </div>
+      <div class="snap-center shrink-0 w-64 h-64 rounded-xl shadow-md flex items-center justify-center 
+                  bg-white dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700">
+        <span class="text-xl font-bold text-zinc-700 dark:text-zinc-200">4</span>
+      </div>
     </div>
 
-    <div class="snap-center shrink-0 w-[800px] h-[450px] rounded-xl overflow-hidden shadow-md border border-zinc-200 dark:border-zinc-700">
-      <img src="https://via.placeholder.com/800x450" alt="Screenshot 2" class="w-full h-full object-cover" />
-    </div>
-
-    <div class="snap-center shrink-0 w-[800px] h-[450px] rounded-xl overflow-hidden shadow-md border border-zinc-200 dark:border-zinc-700">
-      <img src="https://via.placeholder.com/800x450" alt="Screenshot 3" class="w-full h-full object-cover" />
-    </div>
-
-    <div class="snap-center shrink-0 w-[800px] h-[450px] rounded-xl overflow-hidden shadow-md border border-zinc-200 dark:border-zinc-700">
-      <img src="https://via.placeholder.com/800x450" alt="Screenshot 4" class="w-full h-full object-cover" />
-    </div>
+    <!-- Right Button -->
+    <button id="nextBtn" class="absolute -right-12 p-2 rounded-full bg-white dark:bg-zinc-800 shadow hover:bg-zinc-200 dark:hover:bg-zinc-700 transition">
+      <i data-lucide="chevron-right" class="w-5 h-5 text-zinc-700 dark:text-zinc-200"></i>
+    </button>
   </div>
-
-  <!-- Right Button -->
-  <button id="nextBtn" class="absolute -right-12 z-10 p-2 rounded-full bg-white dark:bg-zinc-800 shadow hover:bg-zinc-200 dark:hover:bg-zinc-700 transition">
-    <i data-lucide="chevron-right" class="w-5 h-5 text-zinc-700 dark:text-zinc-200"></i>
-  </button>
-</div>
 
 
   <!-- ---------- SKILL-SET ---------- -->
@@ -742,6 +740,24 @@
     </div>
   </section>
 
+
+  <script>
+  const carousel = document.getElementById('carousel');
+  const prevBtn = document.getElementById('prevBtn');
+  const nextBtn = document.getElementById('nextBtn');
+
+  const scrollAmount = 800 + 24; // width + gap (24px gap-6)
+
+  prevBtn.addEventListener('click', () => {
+    carousel.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+  });
+
+  nextBtn.addEventListener('click', () => {
+    carousel.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+  });
+</script>
+
+
   <!-- ---------- BACK-TO-TOP ---------- -->
 
   <!-- ---------- PARTICLES ---------- -->
@@ -799,6 +815,7 @@ document.addEventListener("mousemove", (e) => {
  </script>
 </body>
 </html>
+
 
 
 
