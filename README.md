@@ -78,3 +78,34 @@ cd TaskStalker
 npm install
 ```
 
+
+Then deploy via your chosen platform (Vercel, Netlify, etc.).  
+In Vercel, you can connect the repository and set build command / output directory as per your setup.  
+
+## Customization
+
+You can customize:
+
+- Colors, fonts, or spacing via Tailwind config  
+- DaisyUI themes and component styles  
+- Content (sections, pages)  
+- Responsiveness, animations, interactions  
+
+If you add scripts (JS) or frameworks (React, Vue, etc.), update the README accordingly.
+
+## Contributing
+
+Contributions, issues, and feature requests are welcome!  
+If you’d like to contribute:
+
+1. Fork the repo  
+2. Open a Pull Request
+3. Star the repository
+
+   
+
+Please make sure to document your changes, and test across devices.
+
+## License
+
+This project is licensed under the **MIT License**
