@@ -273,28 +273,126 @@
     .stats-wrap img { max-width: 100%; border-radius: 4px; border: 1px solid var(--border); }
 
     /* NICE PEOPLE */
+    .people-header-img {
+      width: 100%; max-height: 200px; object-fit: cover;
+      border-radius: 6px; margin-bottom: 2rem;
+      border: 1px solid var(--border);
+      display: block;
+    }
     .people-intro {
       font-size: 0.975rem; color: var(--ink-muted);
-      line-height: 1.85; margin-bottom: 2.5rem; max-width: 540px;
+      line-height: 1.85; margin-bottom: 2.5rem; max-width: 560px;
     }
     .people-grid {
-      display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 1rem;
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1rem;
     }
+
+    /* Discord person card */
+    .discord-card {
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      overflow: hidden;
+      background: var(--paper);
+      text-decoration: none;
+      color: inherit;
+      display: block;
+      transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+      position: relative;
+    }
+    .discord-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+      border-color: var(--border-dark);
+    }
+    .discord-card-banner {
+      width: 100%;
+      height: 72px;
+      object-fit: cover;
+      display: block;
+      background: var(--border);
+    }
+    .discord-card-banner-placeholder {
+      width: 100%;
+      height: 72px;
+      background: linear-gradient(135deg, #3c3a5a 0%, #5b4e82 50%, #7c6fa0 100%);
+      display: block;
+    }
+    .discord-card-body {
+      padding: 0 1rem 0.9rem;
+      position: relative;
+    }
+    .discord-card-avatar-wrap {
+      margin-top: -22px;
+      margin-bottom: 0.5rem;
+      display: inline-block;
+      position: relative;
+    }
+    .discord-card-avatar {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      border: 3px solid var(--paper);
+      object-fit: cover;
+      display: block;
+      background: var(--border);
+    }
+    .discord-card-avatar-placeholder {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      border: 3px solid var(--paper);
+      background: var(--border-dark);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--ink-faint);
+    }
+    .discord-online-dot {
+      width: 12px; height: 12px;
+      border-radius: 50%;
+      background: #23a559;
+      border: 2px solid var(--paper);
+      position: absolute;
+      bottom: 2px; right: 1px;
+    }
+    .discord-card-name {
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--ink);
+      margin-bottom: 0.1rem;
+      line-height: 1.3;
+    }
+    .discord-card-handle {
+      font-size: 0.72rem;
+      color: var(--ink-faint);
+      letter-spacing: 0.03em;
+    }
+    .discord-card-tag {
+      margin-top: 0.6rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      font-size: 0.65rem;
+      font-weight: 500;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      color: #5865f2;
+      background: rgba(88,101,242,0.08);
+      border: 1px solid rgba(88,101,242,0.2);
+      padding: 0.2rem 0.5rem;
+      border-radius: 2px;
+    }
+
     .person-slot {
-      border: 1.5px dashed var(--border-dark); border-radius: 4px;
+      border: 1.5px dashed var(--border-dark); border-radius: 8px;
       padding: 1.5rem; display: flex; flex-direction: column;
-      align-items: center; justify-content: center; min-height: 110px;
+      align-items: center; justify-content: center; min-height: 140px;
       text-align: center; color: var(--ink-faint);
       font-size: 0.75rem; letter-spacing: 0.05em; text-transform: uppercase;
       background: var(--paper); transition: border-color 0.2s; gap: 0.6rem;
     }
     .person-slot:hover { border-color: var(--ink-muted); }
-    .person-banner { border: 1px solid var(--border); border-radius: 4px; overflow: hidden; background: var(--paper); }
-    .person-banner img { width: 100%; height: auto; display: block; }
-    .person-banner .name {
-      padding: 0.65rem 1rem; font-size: 0.8rem; font-weight: 500;
-      color: var(--ink-muted); border-top: 1px solid var(--border);
-    }
+
     .people-hint {
       margin-top: 1.25rem; font-size: 0.78rem; color: var(--ink-faint);
       display: flex; align-items: center; gap: 0.4rem;
@@ -308,7 +406,33 @@
       transition: transform 0.2s, box-shadow 0.2s;
     }
     .game-card:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(0,0,0,0.07); }
-    .game-banner { width: 100%; height: 175px; object-fit: cover; display: block; }
+    /* Banner wrapper controls aspect ratio and crop */
+    .game-banner-wrap {
+      width: 100%;
+      height: 175px;
+      overflow: hidden;
+      display: block;
+      background: #111;
+    }
+    .game-banner {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+    }
+    /* osu! — 1366×768 — square-ish, center crop works fine */
+    .game-banner-osu {
+      object-position: center center;
+    }
+    /* HSR — 1308×736 — wide, center crop fine */
+    .game-banner-hsr {
+      object-position: center center;
+    }
+    /* Genshin — 1306×736 — wide, center crop fine */
+    .game-banner-genshin {
+      object-position: center center;
+    }
     .game-info {
       padding: 1.1rem 1.25rem; border-top: 1px solid var(--border);
       display: flex; align-items: center; gap: 0.75rem;
@@ -589,6 +713,16 @@
       <span class="project-link">GitHub <i data-lucide="arrow-right" style="width:11px;height:11px;"></i></span>
     </a>
 
+    <!-- NEW PROJECT -->
+    <div class="project-card">
+      <div class="project-icon"><i data-lucide="activity" style="width:18px;height:18px;"></i></div>
+      <h3>Environmental Divergence Meter</h3>
+      <p>A physical device with onboard sensors that measures temperature, AQI, air pressure, ambient noise, and luminosity in real time.</p>
+      <span class="project-status">
+        <i data-lucide="clock" style="width:11px;height:11px;"></i>&nbsp;No links yet
+      </span>
+    </div>
+
   </div>
 </section>
 
@@ -663,43 +797,82 @@
     Really Nice People
     <i data-lucide="heart" style="width:1.6rem;height:1.6rem;color:var(--accent);fill:var(--accent);"></i>
   </h2>
-  <p class="people-intro">These are the people who've spent time with me, helped me grow, and made the journey more fun. Grateful for every one of them.</p>
+
+  <!-- Header image -->
+  <img src="/asset/chiby.jpg" alt="Community" class="people-header-img">
+
+  <p class="people-intro">
+    These are the people I met on Discord — who've spent time with me, helped me grow, and made the journey more fun. Grateful for every one of them.
+  </p>
+
   <div class="people-grid">
-    <!--
-      HOW TO ADD A PERSON — replace a .person-slot with:
-      <div class="person-banner">
-        <img src="DISCORD_BANNER_URL" alt="Username">
-        <div class="name">Username</div>
+
+    <!-- <!--
+      HOW TO ADD A PERSON — copy and fill in this template:
+
+      <a class="discord-card" href="https://discord.com/users/USER_ID" target="_blank" rel="noopener">
+        <div class="discord-card-banner-placeholder"></div>
+        <!-- OR use a banner image: <img class="discord-card-banner" src="URL_TO_BANNER" alt=""> -->
+        <!-- <div class="discord-card-body">
+          <div class="discord-card-avatar-wrap">
+            <img class="discord-card-avatar" src="URL_TO_AVATAR" alt="Username">
+            <!-- remove the dot if you don't want the online indicator -->
+            <!-- <div class="discord-online-dot"></div>
+          </div>
+          <div class="discord-card-name">Display Name</div>
+          <div class="discord-card-handle">@username</div>
+          <div class="discord-card-tag">
+            <i class="fab fa-discord" style="font-size:0.7rem;"></i> Discord
+          </div>
+        </div>
+      </a>  -->
+
+      <!-- USER_ID: right-click the person in Discord → Copy User ID (enable Developer Mode in settings first)
+    --> 
+
+    <!-- EXAMPLE: T0MO4ACH1 (replace User ID and avatar URL) -->
+    <a class="discord-card" href="https://discord.com/users/REPLACE_WITH_USER_ID" target="_blank" rel="noopener">
+      <div class="discord-card-banner-placeholder" style="background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);"></div>
+      <div class="discord-card-body">
+        <div class="discord-card-avatar-wrap">
+          <div class="discord-card-avatar-placeholder">
+            <i data-lucide="user" style="width:20px;height:20px;"></i>
+          </div>
+        </div>
+        <div class="discord-card-name">Aichi</div>
+        <div class="discord-card-handle">ness_126448</div>
+        <div class="discord-card-tag">
+          <i class="fab fa-discord" style="font-size:0.7rem;"></i> Discord
+        </div>
       </div>
-    -->
+    </a>
+
+    <!-- Placeholder slots -->
     <div class="person-slot">
       <i data-lucide="user-round" style="width:1.5rem;height:1.5rem;color:var(--border-dark);"></i>
-      Add Discord banner
+      Add person
     </div>
     <div class="person-slot">
       <i data-lucide="user-round" style="width:1.5rem;height:1.5rem;color:var(--border-dark);"></i>
-      Add Discord banner
+      Add person
     </div>
     <div class="person-slot">
       <i data-lucide="user-round" style="width:1.5rem;height:1.5rem;color:var(--border-dark);"></i>
-      Add Discord banner
+      Add person
     </div>
     <div class="person-slot">
       <i data-lucide="user-round" style="width:1.5rem;height:1.5rem;color:var(--border-dark);"></i>
-      Add Discord banner
+      Add person
     </div>
     <div class="person-slot">
       <i data-lucide="user-round" style="width:1.5rem;height:1.5rem;color:var(--border-dark);"></i>
-      Add Discord banner
-    </div>
-    <div class="person-slot">
-      <i data-lucide="user-round" style="width:1.5rem;height:1.5rem;color:var(--border-dark);"></i>
-      Add Discord banner
+      Add person
     </div>
   </div>
+
   <p class="people-hint">
     <i data-lucide="info" style="width:13px;height:13px;"></i>
-    Replace placeholder slots with Discord banner images using the HTML comment above.
+    Use the HTML comment template above to add each person — pfp URL, display name, handle, and Discord User ID.
   </p>
 </section>
 
@@ -712,10 +885,13 @@
     <h2 class="section-title">Games I Like</h2>
     <div class="games-grid">
 
+      <!-- osu! — artoria.jpg 1366×768, full landscape, center crop -->
       <div class="game-card">
-        <img class="game-banner" src="/asset/artoria.jpg" alt="osu!" style="object-fit:contain;background:#ff66ab;padding:2.5rem;">
+        <div class="game-banner-wrap">
+          <img class="game-banner game-banner-osu" src="/asset/artoria.jpg" alt="osu!">
+        </div>
         <div class="game-info">
-          <div class="game-icon"><i data-lucide="circle-dot" style="width:20px;height:20px;"></i></div>/
+          <div class="game-icon"><i data-lucide="circle-dot" style="width:20px;height:20px;"></i></div>
           <div class="game-info-text">
             <h3>osu!</h3>
             <p>Rhythm game — click circles, feel the music.</p>
@@ -723,19 +899,11 @@
         </div>
       </div>
 
+      <!-- Honkai: Star Rail — hsr.jpg 1308×736, wide landscape, center crop -->
       <div class="game-card">
-        <img class="game-banner" src="https://www.minecraft.net/content/dam/games/minecraft/key-art/MC-Vanilla_Keyart_A.jpg" alt="Minecraft">
-        <div class="game-info">
-          <div class="game-icon"><i data-lucide="box" style="width:20px;height:20px;"></i></div>
-          <div class="game-info-text">
-            <h3>Minecraft</h3>
-            <p>Build, explore, survive. Infinite creativity.</p>
-          </div>
+        <div class="game-banner-wrap">
+          <img class="game-banner game-banner-hsr" src="/asset/hsr.jpg" alt="Honkai: Star Rail">
         </div>
-      </div>
-
-      <div class="game-card">
-        <img class="game-banner" src="https://upload.wikimedia.org/wikipedia/en/5/5b/Honkai_Star_Rail.jpg" alt="Honkai: Star Rail">
         <div class="game-info">
           <div class="game-icon"><i data-lucide="star" style="width:20px;height:20px;"></i></div>
           <div class="game-info-text">
@@ -745,8 +913,11 @@
         </div>
       </div>
 
+      <!-- Genshin Impact — clmbn.jpg 1306×736, wide landscape, center crop -->
       <div class="game-card">
-        <img class="game-banner" src="https://upload.wikimedia.org/wikipedia/en/9/9c/Genshin_Impact.jpg" alt="Genshin Impact">
+        <div class="game-banner-wrap">
+          <img class="game-banner game-banner-genshin" src="/asset/clmbn.jpg" alt="Genshin Impact">
+        </div>
         <div class="game-info">
           <div class="game-icon"><i data-lucide="wind" style="width:20px;height:20px;"></i></div>
           <div class="game-info-text">
