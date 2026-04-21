@@ -3,924 +3,858 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>  Task-Stalker  </title>
-   
-  <!-- Theme Colors -->
-  <!-- lol guys wassup,,  -_- -->
-  <meta name="theme-color" content="#121212">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="mobile-web-app-capable" content="yes">
-
-  <!-- Open Graph / Facebook / Discord / LinkedIn -->
-<!-- Open Graph / Facebook / Discord / LinkedIn -->
-<meta property="og:type" content="website">
-<meta property="og:title" content="TaskStalker">
-<meta property="og:description" content="wassup guys!">
-<meta property="og:url" content="https://task-stalker.vercel.app/">
-<meta property="og:image" content="https://task-stalker.vercel.app/asset/OG-Image.png">
-<meta property="og:image:width" content="1315">
-<meta property="og:image:height" content="497">
-<meta property="og:site_name" content="TaskStalker">
-<meta property="og:locale" content="en_US">
-
-
-
-  <!-- Tailwind + DaisyUI CDN -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.10/dist/full.min.css" rel="stylesheet" />
-
-  <!-- Font Awesome 6 -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-
-  <!-- Favicon -->
+  <title>TaskStalker</title>
+  <meta name="theme-color" content="#f5f0eb">
   <link rel="icon" href="https://i.pinimg.com/736x/76/8a/74/768a747b12a9bf88226017eb9e0b6625.jpg" />
 
-  <!-- particles.js -->
-  <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;1,9..144,300;1,9..144,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 
   <style>
-    /* Custom cursor */
-    #custom-cursor {
-      position: fixed;
-      width: 20px;
-      height: 20px;
-      background: rgba(99, 102, 241, 0.5);
-      border-radius: 50%;
-      pointer-events: none;
-      z-index: 9999;
-      transition: transform 0.1s;
-      mix-blend-mode: difference;
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --cream: #f5f0eb;
+      --paper: #faf7f4;
+      --warm-white: #fffdf9;
+      --ink: #1a1714;
+      --ink-muted: #5a5450;
+      --ink-faint: #9a9490;
+      --accent: #c8432a;
+      --accent-warm: #e8a87c;
+      --border: #e2ddd8;
+      --border-dark: #c8c3bd;
+      --serif: 'Fraunces', Georgia, serif;
+      --sans: 'DM Sans', system-ui, sans-serif;
     }
 
-    /* Star trail effect */
-    .star {
-      position: absolute;
-      background: white;
-      border-radius: 50%;
-      pointer-events: none;
-      animation: star-trail 1s forwards;
-      z-index: 9998;
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--cream);
+      color: var(--ink);
+      font-family: var(--sans);
+      font-size: 15px;
+      line-height: 1.6;
+      overflow-x: hidden;
     }
 
-    @keyframes star-trail {
-      0% {
-        transform: scale(0);
-        opacity: 1;
-      }
-      100% {
-        transform: scale(1);
-        opacity: 0;
-      }
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: var(--cream); }
+    ::-webkit-scrollbar-thumb { background: var(--border-dark); border-radius: 2px; }
+
+    /* NAV */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(245,240,235,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 2rem; height: 60px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .nav-logo {
+      font-family: var(--serif); font-size: 1.15rem; font-weight: 600;
+      color: var(--ink); text-decoration: none;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .nav-logo img { width: 30px; height: 30px; border-radius: 50%; object-fit: cover; }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a {
+      color: var(--ink-muted); text-decoration: none;
+      font-size: 0.8rem; font-weight: 500;
+      letter-spacing: 0.06em; text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--ink); }
+    .nav-hamburger {
+      display: none; background: none; border: none;
+      cursor: pointer; color: var(--ink); padding: 4px;
+    }
+    .mobile-menu {
+      display: none; position: fixed; top: 60px; left: 0; right: 0;
+      background: var(--paper); border-bottom: 1px solid var(--border);
+      padding: 0.5rem 1.5rem 1rem; z-index: 99;
+      flex-direction: column; gap: 0;
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a {
+      color: var(--ink-muted); text-decoration: none;
+      font-size: 0.85rem; font-weight: 500;
+      letter-spacing: 0.05em; text-transform: uppercase;
+      padding: 0.85rem 0; border-bottom: 1px solid var(--border);
+    }
+    .mobile-menu a:last-child { border-bottom: none; }
+
+    /* HERO */
+    #hero {
+      min-height: calc(100vh - 60px);
+      display: grid; grid-template-columns: 1fr 1fr;
+      align-items: center; gap: 4rem;
+      padding: 5rem 4rem 4rem;
+      max-width: 1100px; margin: 0 auto;
+    }
+    .hero-label {
+      font-size: 0.72rem; font-weight: 500;
+      letter-spacing: 0.15em; text-transform: uppercase;
+      color: var(--accent); margin-bottom: 0.75rem;
+    }
+    .hero-text h1 {
+      font-family: var(--serif);
+      font-size: clamp(3.2rem, 6vw, 5.5rem);
+      font-weight: 300; line-height: 1.05;
+      letter-spacing: -0.02em; margin-bottom: 1.5rem;
+    }
+    .hero-text h1 em { font-style: italic; color: var(--accent); }
+    .hero-text p {
+      color: var(--ink-muted); font-size: 0.975rem;
+      max-width: 380px; margin-bottom: 2.5rem; line-height: 1.9;
+    }
+    .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; }
+
+    .btn-primary {
+      padding: 0.7rem 1.6rem; background: var(--ink);
+      color: var(--warm-white); border: none; border-radius: 2px;
+      font-family: var(--sans); font-size: 0.8rem; font-weight: 500;
+      letter-spacing: 0.07em; text-transform: uppercase;
+      cursor: pointer; text-decoration: none;
+      transition: background 0.2s, transform 0.15s;
+      display: inline-flex; align-items: center; gap: 0.5rem;
+    }
+    .btn-primary:hover { background: var(--accent); transform: translateY(-1px); }
+
+    .btn-outline {
+      padding: 0.7rem 1.6rem; background: transparent;
+      color: var(--ink); border: 1px solid var(--border-dark);
+      border-radius: 2px; font-family: var(--sans);
+      font-size: 0.8rem; font-weight: 500;
+      letter-spacing: 0.07em; text-transform: uppercase;
+      cursor: pointer; text-decoration: none;
+      transition: border-color 0.2s, transform 0.15s;
+      display: inline-flex; align-items: center; gap: 0.5rem;
+    }
+    .btn-outline:hover { border-color: var(--ink); transform: translateY(-1px); }
+
+    .hero-visual { display: flex; justify-content: flex-end; }
+    .hero-card {
+      background: var(--paper); border: 1px solid var(--border);
+      border-radius: 4px; padding: 2.25rem; width: 320px; position: relative;
+    }
+    .hero-card::before {
+      content: ''; position: absolute; inset: -6px;
+      border: 1px solid var(--border); border-radius: 6px; pointer-events: none;
+    }
+    .hero-avatar {
+      width: 72px; height: 72px; border-radius: 50%;
+      object-fit: cover; border: 3px solid var(--warm-white);
+      box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+      margin-bottom: 1.25rem; display: block;
+    }
+    .hero-card h3 {
+      font-family: var(--serif); font-size: 1.3rem;
+      font-weight: 400; margin-bottom: 0.2rem;
+    }
+    .hero-card .role {
+      font-size: 0.72rem; color: var(--accent); font-weight: 500;
+      letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 1.25rem;
+    }
+    .hero-card p { font-size: 0.85rem; color: var(--ink-muted); line-height: 1.75; }
+    .hero-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 1.25rem; }
+    .tag {
+      font-size: 0.7rem; font-weight: 500; letter-spacing: 0.05em;
+      text-transform: uppercase; padding: 0.25rem 0.6rem;
+      border: 1px solid var(--border-dark); border-radius: 2px; color: var(--ink-muted);
     }
 
-    /* Smooth scrolling */
-    html {
-      scroll-behavior: smooth;
+    /* LAYOUT */
+    .section-wrap { padding: 5rem 2rem; max-width: 1100px; margin: 0 auto; }
+    .section-label {
+      font-size: 0.72rem; font-weight: 500; letter-spacing: 0.15em;
+      text-transform: uppercase; color: var(--accent); margin-bottom: 0.6rem;
+    }
+    .section-title {
+      font-family: var(--serif); font-size: clamp(2rem, 4vw, 2.8rem);
+      font-weight: 300; line-height: 1.1; margin-bottom: 2.75rem;
+    }
+    .full-bleed {
+      background: var(--paper);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    .divider { border: none; border-top: 1px solid var(--border); }
+
+    /* ABOUT */
+    .about-grid {
+      display: grid; grid-template-columns: 1.1fr 0.9fr;
+      gap: 4rem; align-items: start;
+    }
+    .about-text p { color: var(--ink-muted); line-height: 1.9; margin-bottom: 1.1rem; font-size: 0.975rem; }
+
+    /* TIMELINE */
+    .timeline { position: relative; padding-left: 1.75rem; }
+    .timeline::before {
+      content: ''; position: absolute; left: 3px; top: 10px; bottom: 10px;
+      width: 1px; background: var(--border-dark);
+    }
+    .timeline-item { position: relative; margin-bottom: 1.75rem; }
+    .timeline-dot {
+      position: absolute; left: -1.75rem; top: 6px;
+      width: 8px; height: 8px; border-radius: 50%;
+      background: var(--ink); border: 2px solid var(--cream);
+      outline: 1px solid var(--border-dark);
+    }
+    .timeline-item.current .timeline-dot { background: var(--accent); }
+    .timeline-item.future .timeline-dot { background: var(--accent-warm); }
+    .timeline-year { font-family: var(--serif); font-size: 0.975rem; font-weight: 600; margin-bottom: 0.2rem; }
+    .timeline-desc { font-size: 0.85rem; color: var(--ink-muted); line-height: 1.65; }
+
+    /* PROJECTS */
+    .projects-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 1px; background: var(--border); border: 1px solid var(--border);
+    }
+    .project-card {
+      background: var(--paper); padding: 1.75rem;
+      transition: background 0.2s; text-decoration: none;
+      color: inherit; display: block;
+    }
+    .project-card:hover { background: var(--warm-white); }
+    .project-icon {
+      width: 36px; height: 36px;
+      border: 1px solid var(--border); border-radius: 4px;
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 1.1rem; color: var(--ink-muted);
+    }
+    .project-card h3 {
+      font-family: var(--serif); font-size: 1.05rem;
+      font-weight: 400; margin-bottom: 0.5rem; color: var(--ink);
+    }
+    .project-card p {
+      font-size: 0.83rem; color: var(--ink-muted);
+      line-height: 1.7; margin-bottom: 1.25rem;
+    }
+    .project-link {
+      font-size: 0.72rem; font-weight: 500; letter-spacing: 0.08em;
+      text-transform: uppercase; color: var(--accent);
+      text-decoration: none; display: inline-flex; align-items: center;
+      gap: 0.3rem; transition: gap 0.2s;
+    }
+    .project-link:hover { gap: 0.55rem; }
+    .project-status {
+      font-size: 0.72rem; font-weight: 500; letter-spacing: 0.07em;
+      text-transform: uppercase; color: var(--ink-faint);
+      display: inline-flex; align-items: center; gap: 0.3rem;
     }
 
-    /* Custom scrollbar */
-    ::-webkit-scrollbar {
-      width: 8px;
+    /* SKILLS */
+    .skills-grid {
+      display: grid; grid-template-columns: repeat(5, 1fr);
+      gap: 1px; background: var(--border); border: 1px solid var(--border);
+    }
+    .skill-item {
+      background: var(--paper); padding: 1.5rem 1rem;
+      text-align: center; transition: background 0.2s;
+    }
+    .skill-item:hover { background: var(--warm-white); }
+    .skill-icon-wrap {
+      display: flex; justify-content: center; align-items: center;
+      height: 36px; margin-bottom: 0.65rem;
+    }
+    .skill-item span {
+      display: block; font-size: 0.72rem; font-weight: 500;
+      letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-muted);
     }
 
-    ::-webkit-scrollbar-track {
-      background: #0f0f0f;
+    /* GITHUB */
+    .stats-wrap { display: flex; flex-direction: column; gap: 1.5rem; align-items: flex-start; }
+    .stats-wrap img { max-width: 100%; border-radius: 4px; border: 1px solid var(--border); }
+
+    /* NICE PEOPLE */
+    .people-intro {
+      font-size: 0.975rem; color: var(--ink-muted);
+      line-height: 1.85; margin-bottom: 2.5rem; max-width: 540px;
+    }
+    .people-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 1rem;
+    }
+    .person-slot {
+      border: 1.5px dashed var(--border-dark); border-radius: 4px;
+      padding: 1.5rem; display: flex; flex-direction: column;
+      align-items: center; justify-content: center; min-height: 110px;
+      text-align: center; color: var(--ink-faint);
+      font-size: 0.75rem; letter-spacing: 0.05em; text-transform: uppercase;
+      background: var(--paper); transition: border-color 0.2s; gap: 0.6rem;
+    }
+    .person-slot:hover { border-color: var(--ink-muted); }
+    .person-banner { border: 1px solid var(--border); border-radius: 4px; overflow: hidden; background: var(--paper); }
+    .person-banner img { width: 100%; height: auto; display: block; }
+    .person-banner .name {
+      padding: 0.65rem 1rem; font-size: 0.8rem; font-weight: 500;
+      color: var(--ink-muted); border-top: 1px solid var(--border);
+    }
+    .people-hint {
+      margin-top: 1.25rem; font-size: 0.78rem; color: var(--ink-faint);
+      display: flex; align-items: center; gap: 0.4rem;
     }
 
-    ::-webkit-scrollbar-thumb {
-      background: #4f46e5;
-      border-radius: 4px;
+    /* GAMES */
+    .games-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.25rem; }
+    .game-card {
+      border: 1px solid var(--border); border-radius: 4px;
+      overflow: hidden; background: var(--paper);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .game-card:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(0,0,0,0.07); }
+    .game-banner { width: 100%; height: 175px; object-fit: cover; display: block; }
+    .game-info {
+      padding: 1.1rem 1.25rem; border-top: 1px solid var(--border);
+      display: flex; align-items: center; gap: 0.75rem;
+    }
+    .game-info-text h3 { font-family: var(--serif); font-size: 1rem; font-weight: 400; margin-bottom: 0.15rem; }
+    .game-info-text p { font-size: 0.78rem; color: var(--ink-faint); }
+    .game-icon { width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; color: var(--ink-muted); flex-shrink: 0; }
+
+    /* UPCOMING */
+    .upcoming-card {
+      border: 1px solid var(--border); border-radius: 4px;
+      padding: 2rem; background: var(--paper);
+      max-width: 560px; display: flex; gap: 1.25rem; align-items: flex-start;
+    }
+    .upcoming-icon {
+      width: 40px; height: 40px; border: 1px solid var(--border);
+      border-radius: 4px; display: flex; align-items: center;
+      justify-content: center; flex-shrink: 0; color: var(--ink-muted);
+    }
+    .upcoming-card h3 { font-family: var(--serif); font-size: 1.15rem; font-weight: 400; margin-bottom: 0.4rem; }
+    .upcoming-card p { font-size: 0.875rem; color: var(--ink-muted); line-height: 1.75; }
+    .upcoming-card a { color: var(--accent); text-decoration: none; }
+    .upcoming-card a:hover { text-decoration: underline; }
+
+    /* MUSIC */
+    .music-scroll {
+      display: flex; gap: 1rem; overflow-x: auto;
+      padding-bottom: 0.75rem; scroll-snap-type: x mandatory;
+    }
+    .music-scroll::-webkit-scrollbar { height: 3px; }
+    .music-scroll::-webkit-scrollbar-thumb { background: var(--border-dark); }
+    .music-scroll iframe { scroll-snap-align: start; border-radius: 4px; border: 1px solid var(--border); flex-shrink: 0; }
+
+    /* CONTACT */
+    .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
+    .contact-text h2 {
+      font-family: var(--serif); font-size: clamp(2rem, 4vw, 2.8rem);
+      font-weight: 300; line-height: 1.1; margin-bottom: 1rem;
+    }
+    .contact-text p { color: var(--ink-muted); line-height: 1.85; font-size: 0.975rem; }
+    .contact-links { display: flex; flex-direction: column; gap: 0.75rem; }
+    .contact-link {
+      display: flex; align-items: center; gap: 1rem;
+      padding: 0.9rem 1.1rem; border: 1px solid var(--border);
+      border-radius: 4px; text-decoration: none; color: var(--ink);
+      background: var(--paper); transition: border-color 0.2s, background 0.2s; font-size: 0.875rem;
+    }
+    .contact-link:hover { border-color: var(--ink); background: var(--warm-white); }
+    .contact-link-icon { width: 18px; height: 18px; display: flex; align-items: center; justify-content: center; color: var(--ink-muted); flex-shrink: 0; }
+    .contact-link span { flex: 1; }
+    .contact-link .arrow { color: var(--ink-faint); }
+
+    /* FOOTER */
+    footer {
+      border-top: 1px solid var(--border); padding: 2rem;
+      text-align: center; font-size: 0.78rem; color: var(--ink-faint);
+      display: flex; align-items: center; justify-content: center; gap: 0.4rem;
     }
 
-    /* Mobile optimizations */
+    /* BACK TO TOP */
+    .back-top {
+      position: fixed; bottom: 1.5rem; right: 1.5rem;
+      width: 38px; height: 38px; background: var(--ink);
+      color: var(--warm-white); border: none; border-radius: 2px;
+      display: flex; align-items: center; justify-content: center;
+      text-decoration: none; z-index: 50; transition: background 0.2s;
+    }
+    .back-top:hover { background: var(--accent); }
+
+    /* RESPONSIVE */
+    @media (max-width: 900px) {
+      .projects-grid { grid-template-columns: repeat(2, 1fr); }
+    }
     @media (max-width: 768px) {
-      .mobile-padding {
-        padding-left: 1rem;
-        padding-right: 1rem;
-      }
-      
-      .mobile-text-center {
-        text-align: center;
-      }
-      
-      .mobile-stack {
-        flex-direction: column;
-      }
+      nav { padding: 0 1.25rem; }
+      .nav-links { display: none; }
+      .nav-hamburger { display: flex; }
+      #hero { grid-template-columns: 1fr; padding: 3rem 1.25rem 2rem; gap: 2.5rem; min-height: auto; }
+      .hero-visual { justify-content: flex-start; }
+      .hero-card { width: 100%; max-width: 360px; }
+      .section-wrap { padding: 3.5rem 1.25rem; }
+      .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+      .contact-grid { grid-template-columns: 1fr; gap: 2rem; }
+      .games-grid { grid-template-columns: 1fr; }
+      .projects-grid { grid-template-columns: 1fr; }
+      .skills-grid { grid-template-columns: repeat(4, 1fr); }
     }
-
-    /* Image optimization */
-    img {
-      max-width: 100%;
-      height: auto;
-    }
-
-    /* Spotify embed responsive fix */
-    .spotify-embed {
-      min-width: 280px;
-    }
-
-    @media (max-width: 640px) {
-      .spotify-embed {
-        min-width: 250px;
-      }
+    @media (max-width: 480px) {
+      .skills-grid { grid-template-columns: repeat(3, 1fr); }
     }
   </style>
 </head>
+<body>
 
-<body class="bg-black text-white">
-  <!-- Custom Cursor -->
-  <div id="custom-cursor"></div>
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">
+    <img src="https://i.pinimg.com/736x/c8/b2/fb/c8b2fb4c13a6a2e15544580465cb2ef1.jpg" alt="Avatar">
+    TaskStalker
+  </a>
+  <ul class="nav-links">
+    <li><a href="#abt">About</a></li>
+    <li><a href="#mp">Projects</a></li>
+    <li><a href="#ss">Skills</a></li>
+    <li><a href="#gs">GitHub</a></li>
+    <li><a href="#nice-people">People</a></li>
+    <li><a href="#games">Games</a></li>
+    <li><a href="#ctn">Contact</a></li>
+  </ul>
+  <button class="nav-hamburger" id="ham" aria-label="Menu">
+    <i data-lucide="menu" style="width:22px;height:22px;"></i>
+  </button>
+</nav>
 
-  <!-- Navigation -->
-  <nav class="navbar bg-[rgba(0,0,0,0.6)] backdrop-blur-md text-neutral-content shadow-lg sticky top-0 z-40">
-    <div class="navbar-start mobile-padding">
-      <a href="#" class="btn btn-ghost normal-case text-xl">
-        <img 
-          class="w-10 h-10 rounded-full object-cover shadow-md border-2 border-gray-200" 
-          src="https://i.pinimg.com/736x/c8/b2/fb/c8b2fb4c13a6a2e15544580465cb2ef1.jpg" 
-          alt="Avatar" 
-        />
-        Task-Stalker
+<div class="mobile-menu" id="mobile-menu">
+  <a href="#abt" onclick="closeMob()">About</a>
+  <a href="#mp" onclick="closeMob()">Projects</a>
+  <a href="#ss" onclick="closeMob()">Skills</a>
+  <a href="#gs" onclick="closeMob()">GitHub</a>
+  <a href="#nice-people" onclick="closeMob()">People</a>
+  <a href="#games" onclick="closeMob()">Games</a>
+  <a href="#ctn" onclick="closeMob()">Contact</a>
+</div>
+
+<!-- HERO -->
+<div id="hero">
+  <div class="hero-text">
+    <p class="hero-label">Portfolio · Web Developer</p>
+    <h1>Hi, I'm<br><em>TaskStalker</em></h1>
+    <p>Passionate about building sleek interfaces, crafting interactive experiences, and pushing pixels to perfection. Currently exploring AI/ML.</p>
+    <div class="hero-btns">
+      <a href="#mp" class="btn-primary">
+        View Work
+        <i data-lucide="arrow-right" style="width:14px;height:14px;"></i>
+      </a>
+      <a href="#ctn" class="btn-outline">
+        Say Hello
+        <i data-lucide="mail" style="width:14px;height:14px;"></i>
       </a>
     </div>
-
-    <div class="navbar-center hidden lg:flex">
-      <ul class="menu menu-horizontal px-1">
-        <li><a href="#abt">About me</a></li>
-        <li><a href="#mp">My Projects</a></li>
-        <li><a href="#ss">Skill-Set</a></li>
-        <li><a href="#gs">GitHub-stats</a></li>
-        <li><a href="#up">Upcoming</a></li>
-        <li><a href="#ctn">Contact</a></li>
-      </ul>
-    </div>
-
-    <div class="navbar-end lg:hidden mobile-padding">
-      <div class="dropdown dropdown-end">
-        <label tabindex="0" class="btn btn-ghost btn-circle">
-          <i class="fas fa-bars"></i>
-        </label>
-        <ul
-          tabindex="0"
-          class="menu menu-compact dropdown-content mt-3 p-2 shadow bg-[rgba(17,17,17,0.95)] backdrop-blur-md rounded-box w-52"
-        >
-          <li><a href="#abt">About me</a></li>
-          <li><a href="#mp">My Projects</a></li>
-          <li><a href="#ss">Skill-Set</a></li>
-          <li><a href="#gs">GitHub-stats</a></li>
-          <li><a href="#up">Upcoming</a></li>
-          <li><a href="#ctn">Contact</a></li>
-        </ul>
+  </div>
+  <div class="hero-visual">
+    <div class="hero-card">
+      <img src="https://i.pinimg.com/736x/c8/b2/fb/c8b2fb4c13a6a2e15544580465cb2ef1.jpg" alt="Avatar" class="hero-avatar">
+      <h3>TaskStalker</h3>
+      <p class="role">Web Developer &amp; Designer</p>
+      <p>Building on the web since 2022. Curious about low-level languages, AI, and game dev.</p>
+      <div class="hero-tags">
+        <span class="tag">JavaScript</span>
+        <span class="tag">React</span>
+        <span class="tag">Tailwind</span>
+        <span class="tag">Firebase</span>
+        <span class="tag">AI/ML</span>
       </div>
     </div>
-  </nav>
+  </div>
+</div>
 
-  <!-- Hero Section -->
-  <section id="hero" class="relative h-screen flex flex-col justify-center items-center overflow-hidden pt-16">
-    <!-- Background particles -->
-    <div id="particles-js" class="absolute inset-0 bg-black"></div>
+<hr class="divider">
 
-    <!-- Content -->
-    <div class="relative z-10 text-center max-w-2xl mobile-padding">
-      <!-- Avatar -->
-      <img
-        id="hero-image"
-        class="w-32 h-32 md:w-40 md:h-40 rounded-full mx-auto mb-6 shadow-[0_0_30px_rgba(0,0,0,0.3)] border-4 border-white/20 backdrop-blur"
-        src="https://i.pinimg.com/736x/c8/b2/fb/c8b2fb4c13a6a2e15544580465cb2ef1.jpg"
-        alt="Avatar"
-      />
-
-      <!-- Heading -->
-      <h1 class="text-4xl md:text-6xl font-extrabold mb-4 bg-gradient-to-r from-indigo-400 via-pink-400 to-purple-500 bg-clip-text text-transparent">
-        Hi, I am TaskStalker!
-      </h1>
-
-      <!-- Bio -->
-      <p class="text-gray-300 text-lg md:text-xl leading-relaxed mobile-text-center">
-        A passionate <span class="font-semibold text-indigo-400">Web Developer</span> who loves building
-        sleek UIs, crafting interactive experiences, and pushing pixels to perfection.
-      </p>
-
-      <!-- Buttons -->
-      <div class="flex flex-col sm:flex-row gap-4 justify-center mt-8">
-        <a
-          href="#mp"
-          class="px-6 py-3 rounded-xl bg-indigo-500 hover:bg-indigo-600 text-white font-semibold shadow-lg transition-all hover:scale-105"
-        >
-          View my work
-        </a>
-        <a
-          href="#ctn"
-          class="px-6 py-3 rounded-xl border border-gray-500 hover:border-indigo-400 text-gray-200 hover:text-white font-semibold transition-all hover:scale-105"
-        >
-          Contact me
-        </a>
+<!-- ABOUT -->
+<section id="abt" class="section-wrap">
+  <p class="section-label">Background</p>
+  <h2 class="section-title">About me</h2>
+  <div class="about-grid">
+    <div class="about-text">
+      <p>Hi! I'm Taskstalker — an active web developer and designer passionate about creating innovative, high-performance web applications. I've worked on multiple projects, from solo endeavors to collaborations, always focusing on user-friendly interfaces, creative design, and optimized performance.</p>
+      <p>I'm always expanding my knowledge across front-end frameworks, JavaScript, and backend databases. Currently learning C, Java, Python, and TypeScript, with a long-term goal in the AI/ML space.</p>
+      <p>Beyond code, I enjoy making animations and bringing creative ideas to life through projects that blend technical depth with strong visual identity.</p>
+    </div>
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-year">2022</div>
+        <div class="timeline-desc">Started exploring computers, tech, and coding.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-year">2023</div>
+        <div class="timeline-desc">Learned the fundamentals of web development.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-year">2024</div>
+        <div class="timeline-desc">Built Weather App, Bitcoin Tracker, Sleep Tracker, Chatbot and more.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-year">2025</div>
+        <div class="timeline-desc">Joined GitHub (Feb 3). Started publishing open-source work.</div>
+      </div>
+      <div class="timeline-item current">
+        <div class="timeline-dot"></div>
+        <div class="timeline-year">Now</div>
+        <div class="timeline-desc">Working on an AI platform and multi-model interfaces.</div>
+      </div>
+      <div class="timeline-item future">
+        <div class="timeline-dot"></div>
+        <div class="timeline-year">Next</div>
+        <div class="timeline-desc">Game development RPG project with T0MO4ACH1.</div>
       </div>
     </div>
-
-    <!-- Subtle glow -->
-    <div class="absolute -bottom-32 w-[40rem] h-[40rem] bg-indigo-500/20 rounded-full blur-[150px]"></div>
-  </section>
-
-  <!-- About Section -->
-  <section id="abt" class="py-20 mobile-padding max-w-4xl mx-auto">
-    <h2 class="text-3xl text-white font-bold mb-6 text-center">About me</h2>
-    <div class="space-y-4 text-lg text-white leading-relaxed mobile-text-center">
-      <p>
-        Hi! I'm Taskstalker, an active web developer and designer passionate about creating innovative and high-performance web applications.
-        I have worked on multiple projects, including solo endeavors, focusing on user-friendly interfaces, creative designs, and optimized performance.
-      </p>
-      <p>
-        I am always expanding my knowledge of web technologies, front-end frameworks, JavaScript, and backend databases. Currently I am learning low level languages like C and Java, and also getting familiar with Python and TypeScript. My long term goal is AI/ML industry. 
-        Beyond coding, I enjoy making animations and bringing creative ideas to life.
-      </p>
-      <p>
-        My goal is to refine my skills and deliver high-quality web solutions that blend functionality with design.
-        I strive to create groundbreaking projects by combining my technical expertise with creativity.
-      </p>
-    </div>
-  </section>
-
-  <!-- Journey Timeline -->
-  <section class="bg-black py-16 mobile-padding">
-    <div class="max-w-4xl mx-auto">
-      <h2 class="text-3xl font-bold text-center text-white mb-12">My Journey</h2>
-      <div class="relative border-l-4 border-indigo-500">
-
-        <!-- 2022 -->
-        <div class="mb-10 ml-6 group">
-          <div class="absolute w-6 h-6 bg-indigo-500 rounded-full -left-3 flex items-center justify-center group-hover:scale-125 transition-transform"></div>
-          <div class="p-4 bg-white dark:bg-gray-800 rounded-xl shadow-md group-hover:shadow-xl transition duration-300">
-            <h3 class="text-lg font-semibold text-gray-900 dark:text-white">2022</h3>
-            <p class="text-gray-600 dark:text-gray-300">Started to learn about computers, tech, coding etc.</p>
-          </div>
-        </div>
-
-        <!-- 2023 -->
-        <div class="mb-10 ml-6 group">
-          <div class="absolute w-6 h-6 bg-indigo-500 rounded-full -left-3 flex items-center justify-center group-hover:scale-125 transition-transform"></div>
-          <div class="p-4 bg-white dark:bg-gray-800 rounded-xl shadow-md group-hover:shadow-xl transition duration-300">
-            <h3 class="text-lg font-semibold text-gray-900 dark:text-white">2023</h3>
-            <p class="text-gray-600 dark:text-gray-300">Started to learn basic web development.</p>
-          </div>
-        </div>
-
-        <!-- 2024 -->
-        <div class="mb-10 ml-6 group">
-          <div class="absolute w-6 h-6 bg-indigo-500 rounded-full -left-3 flex items-center justify-center group-hover:scale-125 transition-transform"></div>
-          <div class="p-4 bg-white dark:bg-gray-800 rounded-xl shadow-md group-hover:shadow-xl transition duration-300">
-            <h3 class="text-lg font-semibold text-gray-900 dark:text-white">2024</h3>
-            <p class="text-gray-600 dark:text-gray-300">Built projects like Weather App, Bitcoin Tracker, Sleep Tracker, Chatbot.</p>
-          </div>
-        </div>
-
-        <!-- 2025 -->
-        <div class="mb-10 ml-6 group">
-          <div class="absolute w-6 h-6 bg-indigo-500 rounded-full -left-3 flex items-center justify-center group-hover:scale-125 transition-transform"></div>
-          <div class="p-4 bg-white dark:bg-gray-800 rounded-xl shadow-md group-hover:shadow-xl transition duration-300">
-            <h3 class="text-lg font-semibold text-gray-900 dark:text-white">2025</h3>
-            <p class="text-gray-600 dark:text-white">Joined GitHub on February 3, 2025.</p>
-          </div>
-        </div>
-
-        <!-- Current -->
-        <div class="mb-10 ml-6 group">
-          <div class="absolute w-6 h-6 bg-green-500 rounded-full -left-3 flex items-center justify-center animate-pulse"></div>
-          <div class="p-4 bg-white dark:bg-gray-800 rounded-xl shadow-md group-hover:shadow-xl transition duration-300">
-            <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Currently</h3>
-            <p class="text-gray-600 dark:text-gray-300">Working on AI platform.</p>
-          </div>
-        </div>
-
-        <!-- Future -->
-        <div class="ml-6 group">
-          <div class="absolute w-6 h-6 bg-purple-500 rounded-full -left-3 flex items-center justify-center animate-bounce"></div>
-          <div class="p-4 bg-white dark:bg-gray-800 rounded-xl shadow-md group-hover:shadow-xl transition duration-300">
-            <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Future</h3>
-            <p class="text-gray-600 dark:text-gray-300">Upcoming Game development project.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- My Projects -->
-  <section id="mp" class="py-20  mobile-padding">
-    <h2 class="text-3xl text-white font-bold mb-10 text-center">My Projects</h2>
-    <div class="max-w-6xl mx-auto grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-      <!-- Card 1 -->
-      <div class="card  shadow-xl">
-        <figure class="px-10 pt-10">
-          <i class="fa-solid fa-rocket text-7xl text-primary"></i>
-        </figure>
-        <div class="card-body items-center text-center">
-          <h3 class="card-title">Neura AI</h3>
-          <p>A fast, accurate and developer-friendly AI project for learning and coding.</p>
-          <div class="card-actions mt-4">
-            <a href="https://neura-new-era.vercel.app/" target="_blank" class="btn btn-primary">Visit project</a>
-          </div>
-        </div>
-      </div>
-
-      <!-- Card 2 -->
-      <div class="card  shadow-xl">
-        <figure class="px-10 pt-10">
-          <i class="fa-solid fa-sun text-7xl text-secondary"></i>
-        </figure>
-        <div class="card-body items-center text-center">
-          <h3 class="card-title">Orbit Engine</h3>
-          <p>A 3d space simulator project/game made with three.js library.</p>
-          <div class="card-actions mt-4">
-            <a href="https://3-d-solar-nine.vercel.app/" target="_blank" class="btn btn-secondary">Visit project</a>
-          </div>
-        </div>
-      </div>
-
-      <!-- Card 3 -->
-      <div class="card  shadow-xl">
-        <figure class="px-10 pt-10">
-          <i class="fa-brands fa-bitcoin text-7xl text-accent"></i>
-        </figure>
-        <div class="card-body items-center text-center">
-          <h3 class="card-title">BitCoin Tracker</h3>
-          <p>Live Bitcoin price updates using Binance API.</p>
-          <div class="card-actions mt-4">
-            <a href="https://miojoester.github.io/CCPT/" target="_blank" class="btn btn-accent">Visit project</a>
-          </div>
-        </div>
-      </div>
-
-      <!-- Card 4 -->
-      <div class="card shadow-xl">
-        <figure class="px-10 pt-10">
-          <i class="fa-brands fa-spotify text-7xl text-green-500"></i>
-        </figure>
-        <div class="card-body items-center text-center">
-          <h3 class="card-title">Live embed</h3>
-          <p>Connect with Spotify to see your currently playing track on your website.</p>
-          <div class="card-actions mt-4">
-            <a href="https://live-embed.vercel.app/" target="_blank" class="btn btn-primary">Visit project</a>
-          </div>
-        </div>
-      </div>
-
-      <!-- Card 5 -->
-      <div class="card  shadow-xl">
-        <figure class="px-10 pt-10">
-          <i class="fa-solid fa-code text-7xl text-secondary"></i>
-        </figure>
-        <div class="card-body items-center text-center">
-          <h3 class="card-title">Monaco playground</h3>
-          <p>Web based minimal/compact vs code test editor.</p>
-          <div class="card-actions mt-4">
-            <a href="https://play-ground-ruby.vercel.app/" target="_blank" class="btn btn-secondary">Visit project</a>
-          </div>
-        </div>
-      </div>
-
-      <!-- Card 6 -->
-      <div class="card  shadow-xl">
-        <figure class="px-10 pt-10">
-          <i class="fa-solid fa-cubes text-7xl text-primary"></i>
-        </figure>
-        <div class="card-body items-center text-center">
-          <h3 class="card-title">Component showcase</h3>
-          <p>Beautifully designed components with Tailwind + Chart.js + Shadcn.</p>
-          <div class="card-actions mt-4">
-            <a href="https://fansite-phi.vercel.app/" target="_blank" class="btn btn-primary">Visit project</a>
-          </div>
-        </div>
-      </div>
-
-      <!-- Card 7 -->
-      <div class="card  shadow-xl">
-        <figure class="px-10 pt-10">
-          <i class="fa-solid fa-project-diagram text-7xl text-primary"></i>
-        </figure>
-        <div class="card-body items-center text-center">
-          <h3 class="card-title">Multi-model AI interface</h3>
-          <p>Multi model AI interface web app built with TypeScript, based on opensource project by Vercel, Currently in development</p>
-          <div class="card-actions mt-4">
-            <!-- No link as it's in development -->
-          </div>
-        </div>
-      </div>
-
-
-       <div class="card  shadow-xl">
-        <figure class="px-10 pt-10">
-          <i class="fa-brands fa-discord text-7xl text-[#5865F2]"></i>
-        </figure>
-        <div class="card-body items-center text-center">
-          <h3 class="card-title">Discord RCP Extension</h3>
-          <p>A firefox extension to so firefox current tab as Discord Activity with Discord rich presence.</p>
-          <div class="card-actions mt-4">
-           <a href="https://github.com/miojoester/Web-presence-Discord-RCP" target="_blank" class="btn btn-primary">Visit project</a>
-          </div>
-        </div>
-      </div>
-
-      <!-- Card 8 -->
-      <div class="card  shadow-xl">
-        <figure class="px-10 pt-10">
-          <i class="fa-solid fa-keyboard text-7xl text-yellow-500"></i>
-        </figure>
-        <div class="card-body items-center text-center">
-          <h3 class="card-title">TypeWriter</h3>
-          <p>A minimalistic typing game inspired from <a href="https://monkeytype.com" class="underline">monkeytype.com</a>, in collaboration with <a href="https://github.com/T0MO4ACH1" class="underline">T0MO4ACH1</a></p>
-          <div class="card-actions mt-4">
-            <a href="https://github.com/T0MO4ACH1/TypeWriter" target="_blank" class="btn btn-primary">Visit project</a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Project Screenshots -->
-  <section class="py-10 mobile-padding">
-    <h2 class="text-2xl text-white font-bold mb-6 text-center">Project Screenshots</h2>
-    
-    <div class="w-full flex justify-center">
-      <div id="carousel" class="flex gap-4 overflow-x-auto scroll-smooth snap-x snap-mandatory w-full max-w-5xl pb-4">
-        <!-- Image Slides -->
-        <div class="snap-center shrink-0 w-full sm:w-[500px] md:w-[650px] lg:w-[800px] rounded-xl overflow-hidden shadow-md border border-zinc-700 flex items-center justify-center bg-black">
-          <img src="/asset/neura@code.png" alt="Screenshot 1" class="max-w-full max-h-[80vh] object-scale-down" />
-        </div>
-
-        <div class="snap-center shrink-0 w-full sm:w-[500px] md:w-[650px] lg:w-[800px] rounded-xl overflow-hidden shadow-md border border-zinc-700 flex items-center justify-center bg-black">
-          <img src="/asset/complib-ss.png" alt="Screenshot 2" class="max-w-full max-h-[80vh] object-scale-down" />
-        </div>
-
-        <div class="snap-center shrink-0 w-full sm:w-[500px] md:w-[650px] lg:w-[800px] rounded-xl overflow-hidden shadow-md border border-zinc-700 flex items-center justify-center bg-black">
-          <img src="/asset/multAI-ss1.png" alt="Screenshot 3" class="max-w-full max-h-[80vh] object-scale-down" />
-        </div>
-
-        <div class="snap-center shrink-0 w-full sm:w-[500px] md:w-[650px] lg:w-[800px] rounded-xl overflow-hidden shadow-md border border-zinc-700 flex items-center justify-center bg-black">
-          <img src="/asset/embed-ss.png" alt="Screenshot 4" class="max-w-full max-h-[80vh] object-scale-down" />
-        </div>
-
-        <div class="snap-center shrink-0 w-full sm:w-[500px] md:w-[650px] lg:w-[800px] rounded-xl overflow-hidden shadow-md border border-zinc-700 flex items-center justify-center bg-black">
-          <img src="/asset/monaco-ss.png" alt="Screenshot 5" class="max-w-full max-h-[80vh] object-scale-down" />
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Skill-Set -->
-  <section id="ss" class="py-20 bg-black text-white mobile-padding">
-    <h2 class="text-3xl md:text-4xl font-bold mb-12 text-center">Skill-Set</h2>
-
-    <div class="max-w-7xl mx-auto grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7 gap-8 text-center">
-      <!-- HTML -->
-      <div class="flex flex-col items-center">
-        <i class="fab fa-html5 text-6xl text-red-500"></i>
-        <p class="mt-2 font-semibold">HTML</p>
-      </div>
-      
-      <!-- CSS -->
-      <div class="flex flex-col items-center">
-        <i class="fab fa-css3 text-6xl text-blue-500"></i>
-        <p class="mt-2 font-semibold">CSS</p>
-      </div>
-      
-      <!-- JavaScript -->
-      <div class="flex flex-col items-center">
-        <i class="fab fa-js text-6xl text-yellow-500"></i>
-        <p class="mt-2 font-semibold">JavaScript</p>
-      </div>
-      
-      <!-- React-Native -->
-      <div class="flex flex-col items-center">
-        <i class="fab fa-react text-6xl text-cyan-500"></i>
-        <p class="mt-2 font-semibold">React-Native</p>
-      </div>
-
-      <!-- Supabase -->
-      <div class="flex flex-col items-center">
-        <img src="https://supabase.com/dashboard/img/supabase-logo.svg" class="h-16 w-16" alt="Supabase" />
-        <p class="mt-2 font-semibold">Supabase</p>
-      </div>
-
-      <!-- Firebase -->
-      <div class="flex flex-col items-center">
-        <i class="fas fa-fire text-6xl text-orange-500"></i>
-        <p class="mt-2 font-semibold">Firebase</p>
-      </div>
-
-      <!-- PHP -->
-      <div class="flex flex-col items-center">
-        <i class="fab fa-php text-6xl text-indigo-500"></i>
-        <p class="mt-2 font-semibold">PHP</p>
-      </div>
-
-      <!-- Java -->
-      <div class="flex flex-col items-center">
-        <i class="fab fa-java text-6xl text-red-500"></i>
-        <p class="mt-2 font-semibold">Java</p>
-      </div>
-
-      <!-- C -->
-      <div class="flex flex-col items-center">
-        <i class="fas fa-code text-6xl text-gray-600"></i>
-        <p class="mt-2 font-semibold">C</p>
-      </div>
-
-      <!-- Tailwind CSS -->
-      <div class="flex flex-col items-center">
-        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original.svg"
-             class="w-16 h-16" alt="Tailwind" />
-        <p class="mt-2 font-semibold">Tailwind CSS</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- Skill Charts -->
-  <section id="skills-evolution" class="py-20 bg-black mobile-padding">
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-10 max-w-4xl mx-auto">
-      <!-- Radar Chart -->
-      <div class="p-6 bg-white rounded-2xl shadow-lg">
-        <h2 class="text-xl font-semibold mb-4 text-center text-black">Skill Radar</h2>
-        <canvas id="radarChart" class="w-full h-48"></canvas>
-      </div>
-
-      <!-- Bar Chart -->
-      <div class="p-6 bg-white rounded-2xl shadow-lg">
-        <h2 class="text-xl font-semibold mb-4 text-center text-black">Skill Levels</h2>
-        <canvas id="barChart" class="w-full h-48"></canvas>
-      </div>
-    </div>
-  </section>
-
-  <!-- GitHub Stats -->
-  <section id="gs" class="py-16 text-center relative mobile-padding">
-    <h2 class="text-3xl text-white font-bold mb-6">GitHub Stats</h2>
-    
-    <div id="stats-container" class="flex flex-col items-center space-y-6 max-w-4xl mx-auto">
-      <!-- Top Languages -->
-
-      <!-- Streak Stats -->
-      <img draggable="true"
-           src="https://streak-stats.vercel.app?user=MioJoester&theme=radical&hide_border=true" 
-           alt="GitHub Streak Stats" class="draggable-card rounded-xl shadow-lg cursor-move w-full max-w-md"/>
-
-      <!-- Activity Graph -->
-      <img draggable="true"
-           src="https://github-readme-activity-graph.vercel.app/graph?username=MioJoester&bg_color=141321&color=ff4d8d&line=ff4d8d&point=ffffff&area=true&hide_border=true" 
-           alt="GitHub Activity Graph" 
-           class="draggable-card rounded-xl shadow-lg cursor-move w-full max-w-4xl"/>
-    </div>
-  </section>
-
-  <!-- Upcoming Projects -->
-  <section id="up" class="py-20  mobile-padding">
-    <h2 class="text-3xl font-bold mb-10 text-white text-center">Upcoming Projects</h2>
-    <div class="max-w-4xl mx-auto space-y-10">
-      <div class="card shadow-xl">
-        <div class="card-body">
-          <h3 class="card-title">Journey Back Home</h3>
-          <p>Using python and GD script, rpg game inspired by Stardew Valley, in collaboration with 
-            <a href="https://github.com/T0MO4ACH1" target="_blank" class="link link-accent">T0MO4ACH1</a>.
-          </p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Favorite Songs -->
-  <section class="py-10 mobile-padding">
-    <h2 class="text-2xl text-white font-bold mb-6 text-center">My Favorite Songs</h2>
-
-    <div class="flex space-x-6 overflow-x-auto pb-4 scrollbar-hide">
-      <!-- Song 1 -->
-      <iframe style="border-radius:12px" 
-        src="https://open.spotify.com/embed/track/66wO3p3MofGc4yHSogrqqi?utm_source=generator" 
-        width="300" height="380" frameBorder="0" 
-        allowfullscreen="" 
-        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
-        loading="lazy" class="spotify-embed"></iframe>
-      
-      <!-- Song 2 -->
-      <iframe style="border-radius:12px" 
-        src="https://open.spotify.com/embed/track/6Oy3YnBQkXQwTz7vi3MIzp?utm_source=generator" 
-        width="300" height="380" frameBorder="0" 
-        allowfullscreen="" 
-        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
-        loading="lazy" class="spotify-embed"></iframe>
-
-      <!-- Song 3 -->
-      <iframe style="border-radius:12px" 
-        src="https://open.spotify.com/embed/track/2NCFzAtWAMhHePWUdNFLHD?utm_source=generator" 
-        width="300" height="380" frameBorder="0" 
-        allowfullscreen="" 
-        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
-        loading="lazy" class="spotify-embed"></iframe>
-
-      <!-- Song 4 -->
-      <iframe style="border-radius:12px" 
-        src="https://open.spotify.com/embed/track/6e2jt3vWE7K8kqh3RNSpgT?utm_source=generator" 
-        width="300" height="380" frameBorder="0" 
-        allowfullscreen="" 
-        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
-        loading="lazy" class="spotify-embed"></iframe>
-
-      <!-- Song 5 -->
-      <iframe style="border-radius:12px" 
-        src="https://open.spotify.com/embed/track/2K7xn816oNHJZ0aVqdQsha?utm_source=generator" 
-        width="300" height="380" frameBorder="0" 
-        allowfullscreen="" 
-        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
-        loading="lazy" class="spotify-embed"></iframe>
-
-      <!-- Song 6 -->
-      <iframe style="border-radius:12px" 
-        src="https://open.spotify.com/embed/track/0N25Pjd12mXhiusGOfB9cJ?utm_source=generator" 
-        width="300" height="380" frameBorder="0" 
-        allowfullscreen="" 
-        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
-        loading="lazy" class="spotify-embed"></iframe>
-
-      <!-- Song 7 -->
-      <iframe style="border-radius:12px" 
-        src="https://open.spotify.com/embed/track/0d614RX38VB0gmiHnn5h5I?utm_source=generator" 
-        width="300" height="380" frameBorder="0" 
-        allowfullscreen="" 
-        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
-        loading="lazy" class="spotify-embed"></iframe>
-    </div>
-  </section>
-
-  <!-- Spotify Activity -->
-  <section id="spotify-activity" class="relative bg-black text-white py-16 mobile-padding">
-    <div class="max-w-4xl mx-auto text-center">
-      <p class="text-gray-400 mb-10">what I'm vibin' to right now 🎶</p>
-
-      <!-- Activity Card -->
-      <div class="flex items-center justify-center">
-        <img src="https://spotify-github-profile.kittinanx.com/api/view?uid=31wgbx2hyxtomfbbhxdibou5lh7e&cover_image=true&theme=spotify-embed&show_offline=true&background_color=121212&interchange=false"
-             alt="Album Cover"
-             id="album-cover"
-             class="rounded-lg shadow-md max-w-full">
-      </div>
-
-      <div class="mt-6">
-        <a href="https://github.com/kittinan/spotify-github-profile" target="_blank" class="mt-4 px-6 py-2 bg-green-500 text-black rounded-full hover:bg-green-400 transition">show your spotify activity</a>
-      </div>
-    </div>
-  </section>
-
-
-
-
-
-
-  <!-- Contact -->
-  <section id="ctn" class="py-20 mobile-padding">
-    <h2 class="text-3xl text-white font-bold mb-10 text-center">Contact</h2>
-
-    <div class="flex justify-center gap-4 flex-wrap">
-      <!-- GitHub -->
-      <a href="https://github.com/MioJoester" target="_blank"
-         class="btn btn-circle btn-outline btn-primary" title="My GitHub">
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-github" viewBox="0 0 16 16">
-          <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8"/>
-        </svg>
-      </a>
-      
-      <!-- Discord -->
-      <a href="https://discord.com/users/1274662028820217911" target="_blank"
-         class="btn btn-circle btn-outline btn-secondary" title="My Discord">
-        <i class="fab fa-discord"></i>
-      </a>
-      
-      <!-- Email -->
-      <a href="mailto:mananthaker2505@gmail.com"
-         class="btn btn-circle btn-outline btn-accent" title="Email me">
-        <i class="fas fa-envelope"></i>
-      </a>
-
-      <!-- Dev.to -->
-      <a href="https://dev.to/miojoester"
-         class="btn btn-circle btn-outline btn-accent" title="My Dev.to profile">
-        <svg fill="#ffffff" width="30px" height="30px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-          <path d="M7.826 10.083a.784.784 0 0 0-.468-.175h-.701v4.198h.701a.786.786 0 0 0 .469-.175c.155-.117.233-.292.233-.525v-2.798c.001-.233-.079-.408-.234-.525zM19.236 3H4.764C3.791 3 3.002 3.787 3 4.76v14.48c.002.973.791 1.76 1.764 1.76h14.473c.973 0 1.762-.787 1.764-1.76V4.76A1.765 1.765 0 0 0 19.236 3zM9.195 13.414c0 .755-.466 1.901-1.942 1.898H5.389V8.665h1.903c1.424 0 1.902 1.144 1.903 1.899v2.85zm4.045-3.562H11.1v1.544h1.309v1.188H11.1v1.543h2.142v1.188h-2.498a.813.813 0 0 1-.833-.792V9.497a.813.813 0 0 1 .792-.832h2.539l-.002 1.187zm4.165 4.632c-.531 1.235-1.481.99-1.906 0l-1.548-5.818h1.309l1.193 4.569 1.188-4.569h1.31l-1.546 5.818z"/>
-        </svg>
-      </a>
-
-      <!-- Stack Overflow -->
-      <a href="https://stackoverflow.com/users/31358964/141taskstalker"
-         class="btn btn-circle btn-outline btn-accent" title="My Stack Overflow">
-        <svg width="30px" height="30px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path fill-rule="evenodd" clip-rule="evenodd" d="M15.1348 2.50733C14.8547 2.03139 14.2379 1.86617 13.7573 2.13828C13.2767 2.4104 13.1143 3.01681 13.3945 3.49274L17.6136 10.6594L11.7009 4.86089C11.3066 4.47419 10.6673 4.47419 10.273 4.86089C9.87866 5.24759 9.87866 5.87455 10.273 6.26125L16.2673 12.1399L9.02076 8.03684C8.54016 7.76473 7.92342 7.92995 7.64323 8.40589C7.36304 8.88182 7.5255 9.48823 8.0061 9.76035L15.4385 13.9686L7.26356 11.8204C6.72941 11.6801 6.1784 11.9982 6.03283 12.5309C5.88727 13.0637 6.20229 13.6093 6.73644 13.7497L15.3001 16H7C6.44772 16 6 16.4477 6 17C6 17.5523 6.44772 18 7 18H17C17.5523 18 18 17.5523 18 17C18 16.6823 17.8519 16.3993 17.6209 16.2161C17.7958 16.086 17.93 15.8989 17.9917 15.6734C18.0661 15.4009 18.0201 15.125 17.8858 14.9017C18.0828 14.82 18.2557 14.6766 18.3713 14.4802C18.5095 14.2455 18.54 13.9791 18.4779 13.7368C18.6834 13.7061 18.8811 13.6132 19.0393 13.458C19.2258 13.2751 19.3241 13.0385 19.3342 12.7989C19.5443 12.8256 19.7641 12.7875 19.961 12.676C20.4416 12.4039 20.6041 11.7975 20.3239 11.3215L15.1348 2.50733ZM4 17C4 16.4477 3.55228 16 3 16C2.44772 16 2 16.4477 2 17V18C2 20.2092 3.79086 22 6 22H18C20.2091 22 22 20.2092 22 18V17C22 16.4477 21.5523 16 21 16C20.4477 16 20 16.4477 20 17V18C20 19.1046 19.1046 20 18 20H6C4.89543 20 4 19.1046 4 18V17Z" fill="#FFA500"/>
-        </svg>
-      </a>
-    </div>
-  </section>
-
-  <section class="w-full bg-black py-10 flex justify-center">
-  <video
-    class="w-[250px] h-auto object-contain"
-    autoplay
-    loop
-    muted
-    playsinline
-  >
-    <source src="/asset/Aribial-Eyes.mp4" type="video/mp4">
-  </video>
+  </div>
 </section>
 
+<hr class="divider">
 
-  <!-- Back to Top Button -->
-  <div class="fixed bottom-6 right-6 z-50">
-    <a href="#hero" class="btn btn-circle btn-primary shadow-lg">
-      <i class="fas fa-arrow-up"></i>
-    </a>
+<!-- PROJECTS -->
+<section id="mp" style="padding: 5rem 0 0;">
+  <div style="padding: 0 2rem 2rem; max-width:1100px; margin:0 auto;">
+    <p class="section-label">Work</p>
+    <h2 class="section-title">My Projects</h2>
   </div>
+  <div class="projects-grid" style="max-width:1100px; margin:0 auto;">
 
-  <!-- Scripts -->
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <script>
-    // Initialize particles.js
-    particlesJS('particles-js', {
-      particles: {
-        number: { value: 150, density: { enable: true, value_area: 1000 } },
-        color: { value: '#ffffff' },
-        shape: { type: 'circle' },
-        opacity: { value: 1, random: true },
-        size: { value: 3, random: true },
-        line_linked: { enable: false },
-        move: { enable: true, speed: 1, direction: 'bottom', straight: false, out_mode: 'out' }
-      },
-      interactivity: { detect_on: 'canvas', events: { onhover: { enable: false }, onclick: { enable: false } } },
-      retina_detect: true
-    });
+    <a class="project-card" href="https://neura-new-era.vercel.app/" target="_blank">
+      <div class="project-icon"><i data-lucide="cpu" style="width:18px;height:18px;"></i></div>
+      <h3>Neura AI</h3>
+      <p>A fast, accurate and developer-friendly AI project for learning and coding.</p>
+      <span class="project-link">Visit <i data-lucide="arrow-right" style="width:11px;height:11px;"></i></span>
+    </a>
 
-    // Parallax float effect
-    const heroImg = document.getElementById("hero-image");
-    document.addEventListener("mousemove", (e) => {
-      const x = (window.innerWidth / 2 - e.clientX) / 50;
-      const y = (window.innerHeight / 2 - e.clientY) / 50;
-      heroImg.style.transform = `translate(${x}px, ${y}px)`;
-    });
+    <a class="project-card" href="https://3-d-solar-nine.vercel.app/" target="_blank">
+      <div class="project-icon"><i data-lucide="globe" style="width:18px;height:18px;"></i></div>
+      <h3>Orbit Engine</h3>
+      <p>A 3D space simulator and game built with the Three.js library.</p>
+      <span class="project-link">Visit <i data-lucide="arrow-right" style="width:11px;height:11px;"></i></span>
+    </a>
 
-    // Custom cursor
-    const cursor = document.getElementById("custom-cursor");
-    document.addEventListener("mousemove", (e) => {
-      cursor.style.top = e.clientY + "px";
-      cursor.style.left = e.clientX + "px";
-    });
+    <a class="project-card" href="https://miojoester.github.io/CCPT/" target="_blank">
+      <div class="project-icon"><i data-lucide="trending-up" style="width:18px;height:18px;"></i></div>
+      <h3>Bitcoin Tracker</h3>
+      <p>Live Bitcoin price updates powered by the Binance API.</p>
+      <span class="project-link">Visit <i data-lucide="arrow-right" style="width:11px;height:11px;"></i></span>
+    </a>
 
-    // Star trail effect
-    document.addEventListener("mousemove", (e) => {
-      const star = document.createElement("div");
-      star.className = "star";
-      document.body.appendChild(star);
+    <a class="project-card" href="https://live-embed.vercel.app/" target="_blank">
+      <div class="project-icon"><i data-lucide="music" style="width:18px;height:18px;"></i></div>
+      <h3>Live Embed</h3>
+      <p>Connect with Spotify to show your currently playing track on any website.</p>
+      <span class="project-link">Visit <i data-lucide="arrow-right" style="width:11px;height:11px;"></i></span>
+    </a>
 
-      // Random offset so it looks natural
-      const offsetX = (Math.random() - 0.5) * 20;
-      const offsetY = (Math.random() - 0.5) * 20;
+    <a class="project-card" href="https://play-ground-ruby.vercel.app/" target="_blank">
+      <div class="project-icon"><i data-lucide="code-2" style="width:18px;height:18px;"></i></div>
+      <h3>Monaco Playground</h3>
+      <p>A minimal web-based VS Code-style code editor that runs in the browser.</p>
+      <span class="project-link">Visit <i data-lucide="arrow-right" style="width:11px;height:11px;"></i></span>
+    </a>
 
-      star.style.left = `${e.pageX + offsetX}px`;
-      star.style.top = `${e.pageY + offsetY}px`;
+    <a class="project-card" href="https://fansite-phi.vercel.app/" target="_blank">
+      <div class="project-icon"><i data-lucide="layout-grid" style="width:18px;height:18px;"></i></div>
+      <h3>Component Showcase</h3>
+      <p>Beautifully designed components with Tailwind, Chart.js &amp; Shadcn.</p>
+      <span class="project-link">Visit <i data-lucide="arrow-right" style="width:11px;height:11px;"></i></span>
+    </a>
 
-      // Random size variation
-      const size = Math.random() * 4 + 4;
-      star.style.width = `${size}px`;
-      star.style.height = `${size}px`;
+    <div class="project-card">
+      <div class="project-icon"><i data-lucide="bot" style="width:18px;height:18px;"></i></div>
+      <h3>Multi-model AI Interface</h3>
+      <p>Multi-model AI web app built with TypeScript, based on an open-source Vercel project.</p>
+      <span class="project-status">
+        <i data-lucide="clock" style="width:11px;height:11px;"></i>&nbsp;In Development
+      </span>
+    </div>
 
-      // Remove after animation
-      setTimeout(() => {
-        star.remove();
-      }, 1000);
-    });
+    <a class="project-card" href="https://github.com/miojoester/Web-presence-Discord-RCP" target="_blank">
+      <div class="project-icon"><i data-lucide="radio" style="width:18px;height:18px;"></i></div>
+      <h3>Discord RCP Extension</h3>
+      <p>A Firefox extension showing your current tab as a Discord Activity via Rich Presence.</p>
+      <span class="project-link">GitHub <i data-lucide="arrow-right" style="width:11px;height:11px;"></i></span>
+    </a>
 
-    // Initialize charts
-    const skills = ["HTML", "CSS", "JavaScript", "React", "Tailwind", "API Integration"];
-    const skillLevels = [9, 8, 7, 6, 8, 7];
+    <a class="project-card" href="https://github.com/T0MO4ACH1/TypeWriter" target="_blank">
+      <div class="project-icon"><i data-lucide="keyboard" style="width:18px;height:18px;"></i></div>
+      <h3>TypeWriter</h3>
+      <p>A minimalistic typing game inspired by monkeytype, in collaboration with T0MO4ACH1.</p>
+      <span class="project-link">GitHub <i data-lucide="arrow-right" style="width:11px;height:11px;"></i></span>
+    </a>
 
-    // Radar Chart
-    new Chart(document.getElementById("radarChart"), {
-      type: "radar",
-      data: {
-        labels: skills,
-        datasets: [{
-          label: "Skill Level",
-          data: skillLevels,
-          backgroundColor: "rgba(59, 130, 246, 0.2)",
-          borderColor: "rgba(59, 130, 246, 1)",
-          pointBackgroundColor: "rgba(59, 130, 246, 1)",
-          borderWidth: 2
-        }]
-      },
-      options: {
-        responsive: true,
-        scales: {
-          r: {
-            beginAtZero: true,
-            max: 10,
-            ticks: { stepSize: 2 }
-          }
-        }
-      }
-    });
+  </div>
+</section>
 
-    // Bar Chart
-    new Chart(document.getElementById("barChart"), {
-      type: "bar",
-      data: {
-        labels: skills,
-        datasets: [{
-          label: "Skill Level",
-          data: skillLevels,
-          backgroundColor: "rgba(59, 130, 246, 0.6)",
-          borderRadius: 8
-        }]
-      },
-      options: {
-        responsive: true,
-        scales: {
-          y: {
-            beginAtZero: true,
-            max: 10,
-            ticks: { stepSize: 2 }
-          }
-        }
-      }
-    });
+<hr class="divider" style="margin-top:5rem;">
 
-    // Draggable GitHub stats
-    const container = document.getElementById("stats-container");
-    let draggedItem = null;
+<!-- SKILLS -->
+<section id="ss" class="section-wrap">
+  <p class="section-label">Stack</p>
+  <h2 class="section-title">Skill-Set</h2>
+  <div class="skills-grid">
+    <div class="skill-item">
+      <div class="skill-icon-wrap"><i class="fab fa-html5" style="font-size:1.8rem;color:#e44d26;"></i></div>
+      <span>HTML</span>
+    </div>
+    <div class="skill-item">
+      <div class="skill-icon-wrap"><i class="fab fa-css3-alt" style="font-size:1.8rem;color:#264de4;"></i></div>
+      <span>CSS</span>
+    </div>
+    <div class="skill-item">
+      <div class="skill-icon-wrap"><i class="fab fa-js" style="font-size:1.8rem;color:#f0db4f;"></i></div>
+      <span>JavaScript</span>
+    </div>
+    <div class="skill-item">
+      <div class="skill-icon-wrap"><i class="fab fa-react" style="font-size:1.8rem;color:#61dafb;"></i></div>
+      <span>React</span>
+    </div>
+    <div class="skill-item">
+      <div class="skill-icon-wrap"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original.svg" alt="Tailwind" style="width:1.8rem;height:1.8rem;"></div>
+      <span>Tailwind</span>
+    </div>
+    <div class="skill-item">
+      <div class="skill-icon-wrap"><img src="https://supabase.com/dashboard/img/supabase-logo.svg" alt="Supabase" style="width:1.8rem;height:1.8rem;"></div>
+      <span>Supabase</span>
+    </div>
+    <div class="skill-item">
+      <div class="skill-icon-wrap"><i class="fas fa-fire" style="font-size:1.8rem;color:#f57c00;"></i></div>
+      <span>Firebase</span>
+    </div>
+    <div class="skill-item">
+      <div class="skill-icon-wrap"><i class="fab fa-php" style="font-size:1.8rem;color:#777bb4;"></i></div>
+      <span>PHP</span>
+    </div>
+    <div class="skill-item">
+      <div class="skill-icon-wrap"><i class="fab fa-java" style="font-size:1.8rem;color:#f89820;"></i></div>
+      <span>Java</span>
+    </div>
+    <div class="skill-item">
+      <div class="skill-icon-wrap"><i data-lucide="terminal" style="width:1.8rem;height:1.8rem;color:var(--ink-muted);"></i></div>
+      <span>C</span>
+    </div>
+  </div>
+</section>
 
-    document.querySelectorAll(".draggable-card").forEach(card => {
-      card.addEventListener("dragstart", (e) => {
-        draggedItem = card;
-        setTimeout(() => card.style.display = "none", 0);
-      });
+<hr class="divider">
 
-      card.addEventListener("dragend", () => {
-        setTimeout(() => {
-          draggedItem.style.display = "block";
-          draggedItem = null;
-        }, 0);
-      });
-    });
+<!-- GITHUB -->
+<div class="full-bleed" id="gs">
+  <div class="section-wrap">
+    <p class="section-label">Open Source</p>
+    <h2 class="section-title">GitHub Stats</h2>
+    <div class="stats-wrap">
+      <img src="https://streak-stats.vercel.app?user=MioJoester&theme=default&hide_border=true&background=FAF7F4&ring=c8432a&fire=c8432a&currStreakLabel=1a1714&sideLabels=5a5450&dates=9a9490&stroke=e2ddd8" alt="GitHub Streak" style="max-width:480px;">
+      <img src="https://github-readme-activity-graph.vercel.app/graph?username=MioJoester&bg_color=faf7f4&color=5a5450&line=c8432a&point=1a1714&area=true&hide_border=true" alt="GitHub Activity" style="max-width:100%;">
+    </div>
+  </div>
+</div>
 
-    container.addEventListener("dragover", (e) => {
-      e.preventDefault();
-      const afterElement = getDragAfterElement(container, e.clientY);
-      if (afterElement == null) {
-        container.appendChild(draggedItem);
-      } else {
-        container.insertBefore(draggedItem, afterElement);
-      }
-    });
+<!-- NICE PEOPLE -->
+<section id="nice-people" class="section-wrap">
+  <p class="section-label">Community</p>
+  <h2 class="section-title" style="display:flex;align-items:center;gap:0.5rem;">
+    Really Nice People
+    <i data-lucide="heart" style="width:1.6rem;height:1.6rem;color:var(--accent);fill:var(--accent);"></i>
+  </h2>
+  <p class="people-intro">These are the people who've spent time with me, helped me grow, and made the journey more fun. Grateful for every one of them.</p>
+  <div class="people-grid">
+    <!--
+      HOW TO ADD A PERSON — replace a .person-slot with:
+      <div class="person-banner">
+        <img src="DISCORD_BANNER_URL" alt="Username">
+        <div class="name">Username</div>
+      </div>
+    -->
+    <div class="person-slot">
+      <i data-lucide="user-round" style="width:1.5rem;height:1.5rem;color:var(--border-dark);"></i>
+      Add Discord banner
+    </div>
+    <div class="person-slot">
+      <i data-lucide="user-round" style="width:1.5rem;height:1.5rem;color:var(--border-dark);"></i>
+      Add Discord banner
+    </div>
+    <div class="person-slot">
+      <i data-lucide="user-round" style="width:1.5rem;height:1.5rem;color:var(--border-dark);"></i>
+      Add Discord banner
+    </div>
+    <div class="person-slot">
+      <i data-lucide="user-round" style="width:1.5rem;height:1.5rem;color:var(--border-dark);"></i>
+      Add Discord banner
+    </div>
+    <div class="person-slot">
+      <i data-lucide="user-round" style="width:1.5rem;height:1.5rem;color:var(--border-dark);"></i>
+      Add Discord banner
+    </div>
+    <div class="person-slot">
+      <i data-lucide="user-round" style="width:1.5rem;height:1.5rem;color:var(--border-dark);"></i>
+      Add Discord banner
+    </div>
+  </div>
+  <p class="people-hint">
+    <i data-lucide="info" style="width:13px;height:13px;"></i>
+    Replace placeholder slots with Discord banner images using the HTML comment above.
+  </p>
+</section>
 
-    function getDragAfterElement(container, y) {
-      const draggableElements = [...container.querySelectorAll(".draggable-card:not([style*='display: none'])")];
-      return draggableElements.reduce((closest, child) => {
-        const box = child.getBoundingClientRect();
-        const offset = y - box.top - box.height / 2;
-        if (offset < 0 && offset > closest.offset) {
-          return { offset: offset, element: child };
-        } else {
-          return closest;
-        }
-      }, { offset: Number.NEGATIVE_INFINITY }).element;
-    }
+<hr class="divider">
 
-    // Carousel navigation
-    const carousel = document.getElementById('carousel');
-    const scrollAmount = 800 + 24; // width + gap (24px gap-6)
-  </script>
+<!-- GAMES -->
+<div class="full-bleed" id="games">
+  <div class="section-wrap">
+    <p class="section-label">Leisure</p>
+    <h2 class="section-title">Games I Like</h2>
+    <div class="games-grid">
+
+      <div class="game-card">
+        <img class="game-banner" src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1e/Osu%21_Logo_2016.svg/1200px-Osu%21_Logo_2016.svg.png" alt="osu!" style="object-fit:contain;background:#ff66ab;padding:2.5rem;">
+        <div class="game-info">
+          <div class="game-icon"><i data-lucide="circle-dot" style="width:20px;height:20px;"></i></div>
+          <div class="game-info-text">
+            <h3>osu!</h3>
+            <p>Rhythm game — click circles, feel the music.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="game-card">
+        <img class="game-banner" src="https://www.minecraft.net/content/dam/games/minecraft/key-art/MC-Vanilla_Keyart_A.jpg" alt="Minecraft">
+        <div class="game-info">
+          <div class="game-icon"><i data-lucide="box" style="width:20px;height:20px;"></i></div>
+          <div class="game-info-text">
+            <h3>Minecraft</h3>
+            <p>Build, explore, survive. Infinite creativity.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="game-card">
+        <img class="game-banner" src="https://upload.wikimedia.org/wikipedia/en/5/5b/Honkai_Star_Rail.jpg" alt="Honkai: Star Rail">
+        <div class="game-info">
+          <div class="game-icon"><i data-lucide="star" style="width:20px;height:20px;"></i></div>
+          <div class="game-info-text">
+            <h3>Honkai: Star Rail</h3>
+            <p>Turn-based RPG with stunning sci-fi lore.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="game-card">
+        <img class="game-banner" src="https://upload.wikimedia.org/wikipedia/en/9/9c/Genshin_Impact.jpg" alt="Genshin Impact">
+        <div class="game-info">
+          <div class="game-icon"><i data-lucide="wind" style="width:20px;height:20px;"></i></div>
+          <div class="game-info-text">
+            <h3>Genshin Impact</h3>
+            <p>Open-world action RPG with elemental combat.</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- UPCOMING -->
+<section id="up" class="section-wrap">
+  <p class="section-label">What's Next</p>
+  <h2 class="section-title">Upcoming</h2>
+  <div class="upcoming-card">
+    <div class="upcoming-icon">
+      <i data-lucide="gamepad-2" style="width:20px;height:20px;"></i>
+    </div>
+    <div>
+      <h3>Journey Back Home</h3>
+      <p>An RPG game built with Python and GDScript, inspired by Stardew Valley — in collaboration with <a href="https://github.com/T0MO4ACH1" target="_blank">T0MO4ACH1</a>.</p>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- MUSIC -->
+<section class="section-wrap">
+  <p class="section-label">Currently Vibing</p>
+  <h2 class="section-title">Favorite Songs</h2>
+  <div class="music-scroll">
+    <iframe style="border-radius:4px" src="https://open.spotify.com/embed/track/66wO3p3MofGc4yHSogrqqi?utm_source=generator" width="280" height="352" frameBorder="0" allowfullscreen allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+    <iframe style="border-radius:4px" src="https://open.spotify.com/embed/track/6Oy3YnBQkXQwTz7vi3MIzp?utm_source=generator" width="280" height="352" frameBorder="0" allowfullscreen allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+    <iframe style="border-radius:4px" src="https://open.spotify.com/embed/track/2NCFzAtWAMhHePWUdNFLHD?utm_source=generator" width="280" height="352" frameBorder="0" allowfullscreen allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+    <iframe style="border-radius:4px" src="https://open.spotify.com/embed/track/6e2jt3vWE7K8kqh3RNSpgT?utm_source=generator" width="280" height="352" frameBorder="0" allowfullscreen allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+    <iframe style="border-radius:4px" src="https://open.spotify.com/embed/track/2K7xn816oNHJZ0aVqdQsha?utm_source=generator" width="280" height="352" frameBorder="0" allowfullscreen allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+    <iframe style="border-radius:4px" src="https://open.spotify.com/embed/track/0N25Pjd12mXhiusGOfB9cJ?utm_source=generator" width="280" height="352" frameBorder="0" allowfullscreen allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+    <iframe style="border-radius:4px" src="https://open.spotify.com/embed/track/0d614RX38VB0gmiHnn5h5I?utm_source=generator" width="280" height="352" frameBorder="0" allowfullscreen allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- CONTACT -->
+<section id="ctn" class="section-wrap">
+  <div class="contact-grid">
+    <div class="contact-text">
+      <p class="section-label">Get in Touch</p>
+      <h2>Let's build something <em style="font-family:var(--serif);font-style:italic;color:var(--accent);">together.</em></h2>
+      <br>
+      <p>Whether it's a project, a collaboration, or just saying hi — my inbox is always open.</p>
+    </div>
+    <div class="contact-links">
+      <a href="https://github.com/MioJoester" target="_blank" class="contact-link">
+        <span class="contact-link-icon"><i class="fab fa-github" style="font-size:1rem;"></i></span>
+        <span>GitHub</span>
+        <i data-lucide="arrow-up-right" class="arrow" style="width:14px;height:14px;"></i>
+      </a>
+      <a href="https://discord.com/users/1274662028820217911" target="_blank" class="contact-link">
+        <span class="contact-link-icon"><i class="fab fa-discord" style="font-size:1rem;"></i></span>
+        <span>Discord</span>
+        <i data-lucide="arrow-up-right" class="arrow" style="width:14px;height:14px;"></i>
+      </a>
+      <a href="mailto:mananthaker2505@gmail.com" class="contact-link">
+        <span class="contact-link-icon"><i data-lucide="mail" style="width:16px;height:16px;"></i></span>
+        <span>mananthaker2505@gmail.com</span>
+        <i data-lucide="arrow-up-right" class="arrow" style="width:14px;height:14px;"></i>
+      </a>
+      <a href="https://dev.to/miojoester" target="_blank" class="contact-link">
+        <span class="contact-link-icon" style="font-size:0.8rem;font-weight:700;font-family:monospace;letter-spacing:-1px;color:var(--ink-muted);">DEV</span>
+        <span>Dev.to</span>
+        <i data-lucide="arrow-up-right" class="arrow" style="width:14px;height:14px;"></i>
+      </a>
+      <a href="https://stackoverflow.com/users/31358964/141taskstalker" target="_blank" class="contact-link">
+        <span class="contact-link-icon"><i class="fab fa-stack-overflow" style="font-size:1rem;"></i></span>
+        <span>Stack Overflow</span>
+        <i data-lucide="arrow-up-right" class="arrow" style="width:14px;height:14px;"></i>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <i data-lucide="terminal" style="width:13px;height:13px;"></i>
+  Built by TaskStalker &nbsp;·&nbsp; <span id="year"></span>
+</footer>
+
+<!-- Back to Top -->
+<a href="#" class="back-top" aria-label="Back to top">
+  <i data-lucide="arrow-up" style="width:16px;height:16px;"></i>
+</a>
+
+<script>
+  lucide.createIcons();
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  const ham = document.getElementById('ham');
+  const mob = document.getElementById('mobile-menu');
+  ham.addEventListener('click', () => mob.classList.toggle('open'));
+  function closeMob() { mob.classList.remove('open'); }
+  document.addEventListener('click', (e) => {
+    if (!ham.contains(e.target) && !mob.contains(e.target)) mob.classList.remove('open');
+  });
+</script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
